@@ -6,4 +6,4 @@
 
 Implements Estonian e-invoice standard v1.2.
 
-https://www.pangaliit.ee/arveldused/e-arve
+https://www.pangaliit.ee/arveldused/e-arve (in Estonian)
