@@ -1,7 +1,4 @@
-if ENV['COVERAGE']
-  require 'simplecov'
-  SimpleCov.start
-end
+require 'simplecov' if ENV['COVERAGE']
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 require "estonian_e_invoice"
