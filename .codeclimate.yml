@@ -19,6 +19,4 @@ plugins:
     channel: rubocop-0-58
 exclude_patterns:
   - "bin/"
-  - "lib/"
-  - "vendor/"
   - "test/"
