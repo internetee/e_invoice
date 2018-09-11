@@ -39,9 +39,9 @@ class EInvoiceTest < Minitest::Test
           </InvoiceItem>
           <PaymentInfo>
             <Currency>EUR</Currency>
-            <PaymentRefId>1234</PaymentDescription>
+            <PaymentRefId>1234</PaymentRefId>
             <Payable>YES</Payable>
-            <PayDueDate>2010-07-06</Payable>
+            <PayDueDate>2010-07-07</PayDueDate>
             <PaymentTotalSum>5.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
@@ -49,9 +49,47 @@ class EInvoiceTest < Minitest::Test
             <PayToName>William Jones</PayToName>
           </PaymentInfo>
         </Invoice>
+        <Invoice invoiceId="invoice-12345" regNumber="recipient-1234" sellerRegnumber="john-1234">
+          <InvoiceParties>
+            <SellerParty>
+              <Name>John Doe</Name>
+              <RegNumber>john-1234</RegNumber>
+            </SellerParty>
+            <BuyerParty>
+              <Name>Jane Doe</Name>
+            </BuyerParty>
+          </InvoiceParties>
+          <InvoiceInformation>
+            <Type type="DEB"/>
+            <DocumentName>ARVE</DocumentName>
+            <InvoiceNumber>invoice-12345</InvoiceNumber>
+            <InvoiceDate>2010-07-06</InvoiceDate>
+          </InvoiceInformation>
+          <InvoiceSumGroup>
+            <TotalSum>5.00</TotalSum>
+          </InvoiceSumGroup>
+          <InvoiceItem>
+            <InvoiceItemGroup>
+              <ItemEntry>
+                <Description>acme services</Description>
+              </ItemEntry>
+            </InvoiceItemGroup>
+          </InvoiceItem>
+          <PaymentInfo>
+            <Currency>EUR</Currency>
+            <PaymentRefId>12345</PaymentRefId>
+            <Payable>YES</Payable>
+            <PayDueDate>2010-07-07</PayDueDate>
+            <PaymentTotalSum>5.00</PaymentTotalSum>
+            <PayerName>John Smith</PayerName>
+            <PaymentId>invoice-12345</PaymentId>
+            <PayToAccount>DE91100000000123456789</PayToAccount>
+            <PayToName>William Jones</PayToName>
+          </PaymentInfo>
+        </Invoice>
         <Footer>
-          <TotalNumberInvoices>1</TotalNumberInvoices>
-          <TotalAmount>5.00</TotalAmount>
+          <TotalNumberInvoices>2</TotalNumberInvoices>
+          <TotalAmount>10.00</TotalAmount>
         </Footer>
       </E_Invoice>
     XML
@@ -72,15 +110,25 @@ class EInvoiceTest < Minitest::Test
     item.amount = Money.from_amount(5)
     items = [item]
 
-    invoice = EstonianEInvoice::Invoice.new(seller, buyer, beneficiary, items)
-    invoice.id = 'invoice-1234'
-    invoice.number = 'invoice-1234'
-    invoice.date = Date.parse('2010-07-06')
-    invoice.recipient_id_code = 'recipient-1234'
-    invoice.reference_number = '1234'
-    invoice.due_date = Date.parse('2010-07-07')
-    invoice.payer_name = 'John Smith'
-    invoices = [invoice]
+    invoice1 = EstonianEInvoice::Invoice.new(seller, buyer, beneficiary, items)
+    invoice1.id = 'invoice-1234'
+    invoice1.number = 'invoice-1234'
+    invoice1.date = Date.parse('2010-07-06')
+    invoice1.recipient_id_code = 'recipient-1234'
+    invoice1.reference_number = '1234'
+    invoice1.due_date = Date.parse('2010-07-07')
+    invoice1.payer_name = 'John Smith'
+
+    invoice2 = EstonianEInvoice::Invoice.new(seller, buyer, beneficiary, items)
+    invoice2.id = 'invoice-12345'
+    invoice2.number = 'invoice-12345'
+    invoice2.date = Date.parse('2010-07-06')
+    invoice2.recipient_id_code = 'recipient-1234'
+    invoice2.reference_number = '12345'
+    invoice2.due_date = Date.parse('2010-07-07')
+    invoice2.payer_name = 'John Smith'
+
+    invoices = [invoice1, invoice2]
 
     e_invoice = EstonianEInvoice::EInvoice.new(invoices)
     current_date = Date.parse('2010-07-05')

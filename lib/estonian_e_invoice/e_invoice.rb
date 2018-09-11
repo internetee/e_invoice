@@ -38,7 +38,7 @@ module EstonianEInvoice
             end
 
             xml.InvoiceSumGroup do
-              xml.TotalSum invoice.total
+              xml.TotalSum invoice.total.format(decimal_mark: '.', symbol: false)
             end
 
             invoice.items.each do |item|
@@ -56,7 +56,7 @@ module EstonianEInvoice
               xml.PaymentRefId invoice.reference_number
               xml.Payable 'YES'
               xml.PayDueDate invoice.due_date
-              xml.PaymentTotalSum total
+              xml.PaymentTotalSum invoice.total.format(decimal_mark: '.', symbol: false)
               xml.PayerName invoice.payer_name
               xml.PaymentId invoice.number
               xml.PayToAccount invoice.beneficiary.iban
@@ -67,7 +67,7 @@ module EstonianEInvoice
 
         xml.Footer do
           xml.TotalNumberInvoices invoice_count
-          xml.TotalAmount total
+          xml.TotalAmount total.format(decimal_mark: '.', symbol: false)
         end
       end
     end
