@@ -3,8 +3,6 @@ prepare:
   fetch:
     - "https://raw.githubusercontent.com/internetee/style-guide/master/ruby/.rubocop.yml"
 plugins:
-  bundler-audit:
-    enabled: true
   duplication:
     enabled: true
     config:
