@@ -6,3 +6,7 @@
 /pkg/
 /tmp/
 Gemfile.lock
+
+# Do not commit one. Instead, download the latest from
+# https://github.com/internetee/style-guide/blob/master/ruby/.rubocop.yml
+.rubocop.yml
