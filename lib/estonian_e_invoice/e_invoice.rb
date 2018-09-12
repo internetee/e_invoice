@@ -5,70 +5,13 @@ module EstonianEInvoice
     end
 
     def generate(current_date)
-      xml = Builder::XmlMarkup.new(indent: 2)
-      xml.instruct! :xml
-      xml.E_Invoice('xsi:noNamespaceSchemaLocation' => 'e-invoice_ver1.2.xsd',
-                    'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance') do
-        xml.Header do
-          xml.Date current_date
-          xml.FileId 1
-          xml.Version '1.2'
-        end
-
-        invoices.each do |invoice|
-          xml.Invoice(invoiceId: invoice.id,
-                      regNumber: invoice.recipient_id_code,
-                      sellerRegnumber: invoice.seller.reg_no) do
-            xml.InvoiceParties do
-              xml.SellerParty do
-                xml.Name invoice.seller.name
-                xml.RegNumber invoice.seller.reg_no
-              end
-
-              xml.BuyerParty do
-                xml.Name invoice.buyer.name
-              end
-            end
-
-            xml.InvoiceInformation do
-              xml.Type(type: 'DEB')
-              xml.DocumentName 'ARVE'
-              xml.InvoiceNumber invoice.number
-              xml.InvoiceDate invoice.date
-            end
-
-            xml.InvoiceSumGroup do
-              xml.TotalSum invoice.total.format(decimal_mark: '.', symbol: false)
-            end
-
-            invoice.items.each do |item|
-              xml.InvoiceItem do
-                xml.InvoiceItemGroup do
-                  xml.ItemEntry do
-                    xml.Description item.description
-                  end
-                end
-              end
-            end
-
-            xml.PaymentInfo do
-              xml.Currency invoice.total.currency.iso_code
-              xml.PaymentRefId invoice.reference_number
-              xml.Payable 'YES'
-              xml.PayDueDate invoice.due_date
-              xml.PaymentTotalSum invoice.total.format(decimal_mark: '.', symbol: false)
-              xml.PayerName invoice.payer_name
-              xml.PaymentId invoice.number
-              xml.PayToAccount invoice.beneficiary.iban
-              xml.PayToName invoice.beneficiary.name
-            end
-          end
-        end
-
-        xml.Footer do
-          xml.TotalNumberInvoices invoice_count
-          xml.TotalAmount total.format(decimal_mark: '.', symbol: false)
-        end
+      builder = Builder::XmlMarkup.new(indent: 2)
+      builder.instruct! :xml
+      builder.E_Invoice('xsi:noNamespaceSchemaLocation' => 'e-invoice_ver1.2.xsd',
+                        'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance') do
+        build_header(builder, current_date)
+        build_invoices(builder)
+        build_footer(builder)
       end
     end
 
@@ -82,6 +25,77 @@ module EstonianEInvoice
 
     def total
       invoices.sum(&:total)
+    end
+
+    def build_header(builder, current_date)
+      builder.Header do
+        builder.Date current_date
+        builder.FileId 1
+        builder.Version '1.2'
+      end
+    end
+
+    def build_invoices(builder)
+      invoices.each do |invoice|
+        builder.Invoice(invoiceId: invoice.id,
+                        regNumber: invoice.recipient_id_code,
+                        sellerRegnumber: invoice.seller.reg_no) do
+          builder.InvoiceParties do
+            builder.SellerParty do
+              builder.Name invoice.seller.name
+              builder.RegNumber invoice.seller.reg_no
+            end
+
+            builder.BuyerParty do
+              builder.Name invoice.buyer.name
+            end
+          end
+
+          builder.InvoiceInformation do
+            builder.Type(type: 'DEB')
+            builder.DocumentName 'ARVE'
+            builder.InvoiceNumber invoice.number
+            builder.InvoiceDate invoice.date
+          end
+
+          builder.InvoiceSumGroup do
+            builder.TotalSum invoice.total.format(decimal_mark: '.', symbol: false)
+          end
+
+          build_invoice_items(builder, invoice.items)
+
+          builder.PaymentInfo do
+            builder.Currency invoice.total.currency.iso_code
+            builder.PaymentRefId invoice.reference_number
+            builder.Payable 'YES'
+            builder.PayDueDate invoice.due_date
+            builder.PaymentTotalSum invoice.total.format(decimal_mark: '.', symbol: false)
+            builder.PayerName invoice.payer_name
+            builder.PaymentId invoice.number
+            builder.PayToAccount invoice.beneficiary.iban
+            builder.PayToName invoice.beneficiary.name
+          end
+        end
+      end
+    end
+
+    def build_invoice_items(builder, items)
+      items.each do |item|
+        builder.InvoiceItem do
+          builder.InvoiceItemGroup do
+            builder.ItemEntry do
+              builder.Description item.description
+            end
+          end
+        end
+      end
+    end
+
+    def build_footer(builder)
+      builder.Footer do
+        builder.TotalNumberInvoices invoice_count
+        builder.TotalAmount total.format(decimal_mark: '.', symbol: false)
+      end
     end
   end
 end
