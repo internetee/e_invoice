@@ -28,7 +28,7 @@ class EInvoiceTest < Minitest::Test
             <InvoiceDate>2010-07-06</InvoiceDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
-            <TotalSum>5.00</TotalSum>
+            <TotalSum>5000.00</TotalSum>
           </InvoiceSumGroup>
           <InvoiceItem>
             <InvoiceItemGroup>
@@ -42,7 +42,7 @@ class EInvoiceTest < Minitest::Test
             <PaymentRefId>1234</PaymentRefId>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
-            <PaymentTotalSum>5.00</PaymentTotalSum>
+            <PaymentTotalSum>5000.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
             <PayToAccount>DE91100000000123456789</PayToAccount>
@@ -66,7 +66,7 @@ class EInvoiceTest < Minitest::Test
             <InvoiceDate>2010-07-06</InvoiceDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
-            <TotalSum>5.00</TotalSum>
+            <TotalSum>5000.00</TotalSum>
           </InvoiceSumGroup>
           <InvoiceItem>
             <InvoiceItemGroup>
@@ -80,7 +80,7 @@ class EInvoiceTest < Minitest::Test
             <PaymentRefId>12345</PaymentRefId>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
-            <PaymentTotalSum>5.00</PaymentTotalSum>
+            <PaymentTotalSum>5000.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-12345</PaymentId>
             <PayToAccount>DE91100000000123456789</PayToAccount>
@@ -89,7 +89,7 @@ class EInvoiceTest < Minitest::Test
         </Invoice>
         <Footer>
           <TotalNumberInvoices>2</TotalNumberInvoices>
-          <TotalAmount>10.00</TotalAmount>
+          <TotalAmount>10000.00</TotalAmount>
         </Footer>
       </E_Invoice>
     XML
@@ -107,7 +107,7 @@ class EInvoiceTest < Minitest::Test
 
     item = EstonianEInvoice::InvoiceItem.new
     item.description = 'acme services'
-    item.amount = Money.from_amount(5)
+    item.amount = Money.from_amount(5000)
     items = [item]
 
     invoice1 = EstonianEInvoice::Invoice.new(seller, buyer, beneficiary, items)

@@ -59,7 +59,8 @@ module EstonianEInvoice
           end
 
           builder.InvoiceSumGroup do
-            builder.TotalSum invoice.total.format(decimal_mark: '.', symbol: false)
+            builder.TotalSum invoice.total.format(decimal_mark: '.', symbol: false,
+                                                  thousands_separator: false)
           end
 
           build_invoice_items(builder, invoice.items)
@@ -69,7 +70,8 @@ module EstonianEInvoice
             builder.PaymentRefId invoice.reference_number
             builder.Payable 'YES'
             builder.PayDueDate invoice.due_date
-            builder.PaymentTotalSum invoice.total.format(decimal_mark: '.', symbol: false)
+            builder.PaymentTotalSum invoice.total.format(decimal_mark: '.', symbol: false,
+                                                         thousands_separator: false)
             builder.PayerName invoice.payer_name
             builder.PaymentId invoice.number
             builder.PayToAccount invoice.beneficiary.iban
@@ -94,7 +96,8 @@ module EstonianEInvoice
     def build_footer(builder)
       builder.Footer do
         builder.TotalNumberInvoices invoice_count
-        builder.TotalAmount total.format(decimal_mark: '.', symbol: false)
+        builder.TotalAmount total.format(decimal_mark: '.', symbol: false,
+                                         thousands_separator: false)
       end
     end
   end
