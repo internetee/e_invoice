@@ -13,7 +13,7 @@ require 'estonian_e_invoice'
 # Configure service provider
 soap_client = Savon.client(wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl') 
 EstonianEInvoice.provider = EstonianEInvoice::Providers::Omniva.new(soap_client: soap_client,
-                                                         secret_key: 'test-key')
+                                                                    secret_key: 'secret-key-from-omniva-web-ui')
 
 seller = EstonianEInvoice::Seller.new
 seller.name = 'John Doe'
