@@ -2,7 +2,7 @@ require 'test_helper'
 require 'nokogiri'
 
 class EInvoiceTest < Minitest::Test
-  def test_generate
+  def test_generate_xml
     expected_xml = <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <E_Invoice xsi:noNamespaceSchemaLocation="e-invoice_ver1.2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -133,5 +133,16 @@ class EInvoiceTest < Minitest::Test
     e_invoice = EstonianEInvoice::EInvoice.new(invoices)
     current_date = Date.parse('2010-07-05')
     assert_equal Nokogiri::XML(expected_xml).to_xml(save_with: Nokogiri::XML::Node::SaveOptions::AS_XML), Nokogiri::XML(e_invoice.generate(current_date)).to_xml(save_with: Nokogiri::XML::Node::SaveOptions::AS_XML)
+  end
+
+  def test_deliver_to_provider
+    e_invoice = EstonianEInvoice::EInvoice.new([])
+
+    provider = Minitest::Mock.new
+    provider.expect(:deliver, true, [e_invoice])
+    EstonianEInvoice.provider = provider
+
+    e_invoice.deliver
+    provider.verify
   end
 end
