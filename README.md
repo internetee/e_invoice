@@ -1,4 +1,4 @@
-# Ruby API for generating Estonian e-invoices
+# Ruby API for generating and delivering Estonian e-invoices
 
 [![Build Status](https://travis-ci.org/internetee/estonian_e_invoice.svg?branch=master)](https://travis-ci.org/internetee/estonian_e_invoice)
 [![Code Climate](https://codeclimate.com/github/internetee/estonian_e_invoice/badges/gpa.svg)](https://codeclimate.com/github/internetee/estonian_e_invoice)
