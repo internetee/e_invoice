@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version = EstonianEInvoice::VERSION
   spec.author = 'Estonian Internet Foundation'
   spec.email = 'info@internet.ee'
-  spec.summary = 'Ruby API for generating Estonian e-invoices'
-  spec.homepage = 'https://github.com/internetee/estonian_e_invoice'
+  spec.summary = 'Ruby API for generating and delivering Estonian e-invoices'
+  spec.homepage = 'https://github.com/internetee/e_invoice'
   spec.license = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
