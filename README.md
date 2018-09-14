@@ -6,6 +6,9 @@
 
 Implements Estonian e-invoice standard v1.2.
 
+## Supported providers
+- Omniva
+
 ## Usage
 ```ruby
 require 'estonian_e_invoice'
