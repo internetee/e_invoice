@@ -17,7 +17,6 @@ module EstonianEInvoice
     def generate(generator = Generator.new)
       generator.generate(self)
     end
-    alias_method :to_xml, :generate
 
     def invoice_count
       invoices.size
