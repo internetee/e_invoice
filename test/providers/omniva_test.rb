@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ProviderOmnivaTest < Minitest::Test
-  def test_deliver_e_invoice_to_soap_web_service
+  def test_deliver_normalized_e_invoice_xml_to_soap_web_service
     e_invoice_xml = <<~XML
       <?xml version="1.0" encoding="utf-8"?>
       <E_Invoice></E_Invoice>
