@@ -13,7 +13,7 @@ module EstonianEInvoice
     attr_reader :beneficiary
     attr_reader :items
 
-    def initialize(seller, buyer, beneficiary, items)
+    def initialize(seller:, buyer:, beneficiary:, items:)
       @seller = seller
       @buyer = buyer
       @beneficiary = beneficiary

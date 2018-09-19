@@ -8,15 +8,13 @@ class ProviderOmnivaTest < Minitest::Test
     XML
 
     soap_client = Minitest::Mock.new
-    e_invoice = EstonianEInvoice::EInvoice.new([])
+    e_invoice = EstonianEInvoice::EInvoice.new
     e_invoice.stub(:generate, e_invoice_xml) do
       soap_client.expect(:call, true, [:e_invoice, { :attributes => { authPhrase: 'test-key' },
                                                      message: '<E_Invoice/>' }])
-
       provider = EstonianEInvoice::Providers::Omniva.new(soap_client: soap_client,
                                                          secret_key: 'test-key')
       provider.deliver(e_invoice)
-
       soap_client.verify
     end
   end

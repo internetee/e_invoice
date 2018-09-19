@@ -8,6 +8,7 @@ require 'estonian_e_invoice/buyer'
 require 'estonian_e_invoice/beneficiary'
 require 'estonian_e_invoice/invoice'
 require 'estonian_e_invoice/invoice_item'
+require 'estonian_e_invoice/generator'
 require 'estonian_e_invoice/providers/omniva'
 
 # Money gem

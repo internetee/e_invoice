@@ -1,16 +1,20 @@
 require 'test_helper'
+require_relative 'invoice_item_interface_test'
+
+class InvoiceItemDouble
+  include InvoiceItemInterfaceTest
+
+  def amount
+    Money.from_amount(5)
+  end
+end
 
 class InvoiceTest < Minitest::Test
   def test_calculate_total
-    item1 = EstonianEInvoice::InvoiceItem.new
-    item2 = EstonianEInvoice::InvoiceItem.new
-    items = [item1, item2]
-
-    item1.stub(:amount, Money.from_amount(2.5)) do
-      item2.stub(:amount, Money.from_amount(2.5)) do
-        invoice = EstonianEInvoice::Invoice.new(nil, nil, nil, items)
-        assert_equal Money.from_amount(5), invoice.total
-      end
-    end
+    invoice = EstonianEInvoice::Invoice.new(seller: 'any',
+                                            buyer: 'any',
+                                            beneficiary: 'any',
+                                            items: [InvoiceItemDouble.new, InvoiceItemDouble.new])
+    assert_equal Money.from_amount(10), invoice.total
   end
 end
