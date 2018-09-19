@@ -16,6 +16,11 @@ class EInvoiceTest < Minitest::Test
     end
   end
 
+  def test_generates_checksum
+    refute_empty @e_invoice.checksum
+    assert @e_invoice.checksum.size <= 20, 'Checksum should be less than or equal to 20 chars'
+  end
+
   def test_delegates_to_provider
     provider = Minitest::Mock.new
     provider.expect(:deliver, true, [@e_invoice])

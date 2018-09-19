@@ -7,6 +7,10 @@ class EInvoiceDouble
     Date.parse('2010-07-05')
   end
 
+  def checksum
+    'checksum-1234'
+  end
+
   def invoices
     seller = EstonianEInvoice::Seller.new
     seller.name = 'John Doe'
@@ -60,7 +64,7 @@ class GeneratorTest < Minitest::Test
       <E_Invoice xsi:noNamespaceSchemaLocation="e-invoice_ver1.2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Header>
           <Date>2010-07-05</Date>
-          <FileId>1</FileId>
+          <FileId>checksum-1234</FileId>
           <Version>1.2</Version>
         </Header>
         <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234">

@@ -21,7 +21,7 @@ module EstonianEInvoice
     def build_header(e_invoice)
       builder.Header do
         builder.Date e_invoice.date
-        builder.FileId 1
+        builder.FileId e_invoice.checksum
         builder.Version '1.2'
       end
     end

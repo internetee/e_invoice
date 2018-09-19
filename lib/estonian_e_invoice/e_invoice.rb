@@ -1,10 +1,12 @@
 module EstonianEInvoice
   class EInvoice
     attr_reader :date
+    attr_reader :checksum
     attr_reader :invoices
 
     def initialize(invoices = [])
       @date = Date.today
+      @checksum = generate_checksum
       @invoices = invoices
     end
 
@@ -15,6 +17,7 @@ module EstonianEInvoice
     def generate(generator = Generator.new)
       generator.generate(self)
     end
+    alias_method :to_xml, :generate
 
     def invoice_count
       invoices.size
@@ -22,6 +25,12 @@ module EstonianEInvoice
 
     def total
       invoices.sum(&:total)
+    end
+
+    private
+
+    def generate_checksum
+      SecureRandom.hex[0...20]
     end
   end
 end
