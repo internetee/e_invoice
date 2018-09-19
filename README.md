@@ -9,15 +9,21 @@ Implements Estonian e-invoice standard v1.2.
 ## Supported providers
 - Omniva
 
+## Installation with Bundler
+Add gem to your `Gemfile`:
+
+`gem 'estonian_e_invoice', git: 'https://github.com/internetee/estonian_e_invoice', branch: 'master'`
+
 ## Usage
 ```ruby
 require 'estonian_e_invoice'
 
-# Configure service provider
-soap_client = Savon.client(wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl') 
+# Configure provider
+soap_client = Savon.client(wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl')
+secret_key = 'secret-key-from-omniva-web-ui' 
 EstonianEInvoice.provider = EstonianEInvoice::Providers::Omniva.new(soap_client: soap_client,
-                                                                    secret_key: 'secret-key-from-omniva-web-ui')
-
+                                                                    secret_key: secret_key)
+                                                                    
 seller = EstonianEInvoice::Seller.new
 seller.name = 'John Doe'
 seller.reg_no = 'john-1234'
@@ -33,7 +39,8 @@ item = EstonianEInvoice::InvoiceItem.new
 item.description = 'acme services'
 item.amount = Money.from_amount(10)
 
-invoice = EstonianEInvoice::Invoice.new(seller, buyer, beneficiary, [item])
+invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary, 
+                                        items: [item])
 invoice.id = 'invoice-1234'
 invoice.number = 'invoice-1234'
 invoice.date = Date.parse('2010-07-06')
@@ -42,11 +49,17 @@ invoice.reference_number = '1234'
 invoice.due_date = Date.parse('2010-07-07')
 invoice.payer_name = 'John Smith'
 
-e_invoice = EstonianEInvoice::EInvoice.new([invoice])
-e_invoice.generate(Date.today) # Get e-invoice XML
-e_invoice.deliver # Deliver to configured provider
-
+invoices = [invoice]
+e_invoice = EstonianEInvoice::EInvoice.new(invoices)
+e_invoice.deliver # Delivers to configured provider
 ```
 
-### Resources
+## Adding new provider
+1. Create a new class in `lib/estonian_e_invoice/providers`, for example `custom.rb`.
+2. Ensure it has a method with the signature of `deliver(e_invoice)`, which will be called
+by `EInvoice` class when you ask it to be delivered, passing itself along.
+3. Point the gem to use your brand new provider by passing an invoice of it 
+to `EstonianEInvoice.provider` (see `Usage` section).
+
+## Resources
 - [E-invoice description (in Estonian)](https://www.pangaliit.ee/arveldused/e-arve)
