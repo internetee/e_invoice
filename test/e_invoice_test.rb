@@ -16,7 +16,7 @@ class EInvoiceTest < Minitest::Test
     end
   end
 
-  def test_delegate_to_provider
+  def test_delegates_to_provider
     provider = Minitest::Mock.new
     provider.expect(:deliver, true, [@e_invoice])
     EstonianEInvoice.provider = provider
@@ -25,7 +25,7 @@ class EInvoiceTest < Minitest::Test
     provider.verify
   end
 
-  def test_delegate_to_generator
+  def test_delegates_to_generator
     generator = Minitest::Mock.new
     generator.expect(:generate, true, [@e_invoice])
 
@@ -39,7 +39,7 @@ class EInvoiceTest < Minitest::Test
     assert_equal 2, e_invoice.invoice_count
   end
 
-  def test_calculate_total_amount_of_all_invoices
+  def test_calculates_total_amount_of_all_invoices
     invoice = EstonianEInvoice::Invoice.new(seller: 'seller',
                                             buyer: 'buyer',
                                             beneficiary: 'beneficiary',

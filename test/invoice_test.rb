@@ -1,16 +1,22 @@
 require 'test_helper'
-require_relative 'invoice_item_interface_test'
+require_relative 'amountable_interface_test'
 
 class InvoiceItemDouble
-  include InvoiceItemInterfaceTest
-
   def amount
     Money.from_amount(5)
   end
 end
 
+class InvoiceItemDoubleTest < Minitest::Test
+  include AmountableInterfaceTest
+
+  def setup
+    @object = InvoiceItemDouble.new
+  end
+end
+
 class InvoiceTest < Minitest::Test
-  def test_calculate_total
+  def test_calculates_total
     invoice = EstonianEInvoice::Invoice.new(seller: 'any',
                                             buyer: 'any',
                                             beneficiary: 'any',

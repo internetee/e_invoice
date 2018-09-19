@@ -54,7 +54,7 @@ class EInvoiceDoubleTest < Minitest::Test
 end
 
 class GeneratorTest < Minitest::Test
-  def test_generate_e_invoice_xml
+  def test_generates_e_invoice_xml
     expected_xml = <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
       <E_Invoice xsi:noNamespaceSchemaLocation="e-invoice_ver1.2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
