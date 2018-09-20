@@ -28,19 +28,23 @@ module EstonianEInvoice
 
     def build_invoices(invoices)
       invoices.each do |invoice|
-        builder.Invoice(invoiceId: invoice.id,
-                        regNumber: invoice.recipient_id_code,
-                        sellerRegnumber: invoice.seller.reg_no) do
-          build_invoice_party_details(invoice)
-          build_invoice_details(invoice)
+        build_invoice(invoice)
+      end
+    end
 
-          builder.InvoiceSumGroup do
-            builder.TotalSum format_money(invoice.total)
-          end
+    def build_invoice(invoice)
+      builder.Invoice(invoiceId: invoice.id,
+                      regNumber: invoice.recipient_id_code,
+                      sellerRegnumber: invoice.seller.reg_no) do
+        build_invoice_party_details(invoice)
+        build_invoice_details(invoice)
 
-          build_invoice_items(invoice.items)
-          build_invoice_payment_details(invoice)
+        builder.InvoiceSumGroup do
+          builder.TotalSum format_money(invoice.total)
         end
+
+        build_invoice_items(invoice.items)
+        build_invoice_payment_details(invoice)
       end
     end
 
