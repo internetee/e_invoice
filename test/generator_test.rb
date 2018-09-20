@@ -58,6 +58,10 @@ class EInvoiceDoubleTest < Minitest::Test
 end
 
 class GeneratorTest < Minitest::Test
+  def setup
+    @generator = EstonianEInvoice::Generator.new
+  end
+
   def test_generates_e_invoice_xml
     expected_xml = <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -111,12 +115,19 @@ class GeneratorTest < Minitest::Test
         </Footer>
       </E_Invoice>
     XML
-
-    generator = EstonianEInvoice::Generator.new
-    actual_xml = Nokogiri::XML(generator.generate(EInvoiceDouble.new)) { |config| config.noblanks }
+    actual_xml = Nokogiri::XML(@generator.generate(EInvoiceDouble.new)) { |config| config.noblanks }
                    .to_xml
 
     expected_xml = Nokogiri::XML(expected_xml) { |config| config.noblanks }.to_xml
     assert_equal expected_xml, actual_xml
+  end
+
+  def test_generated_xml_conforms_to_estonian_e_invoice_standard_v1_2
+    schema = Nokogiri::XML::Schema(File.read('test/xml_schemas/v1.2.xsd'))
+    xml = @generator.generate(EInvoiceDouble.new)
+
+    errors = schema.validate(Nokogiri::XML(xml))
+    valid = errors.empty?
+    assert valid, proc { errors.each { |error| puts error } }
   end
 end
