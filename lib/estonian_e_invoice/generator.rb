@@ -38,11 +38,7 @@ module EstonianEInvoice
                       sellerRegnumber: invoice.seller.reg_no) do
         build_invoice_party_details(invoice)
         build_invoice_details(invoice)
-
-        builder.InvoiceSumGroup do
-          builder.TotalSum format_money(invoice.total)
-        end
-
+        build_invoice_totals(invoice)
         build_invoice_items(invoice.items)
         build_invoice_payment_details(invoice)
       end
@@ -67,6 +63,12 @@ module EstonianEInvoice
         builder.DocumentName 'ARVE'
         builder.InvoiceNumber invoice.number
         builder.InvoiceDate invoice.date
+      end
+    end
+
+    def build_invoice_totals(invoice)
+      builder.InvoiceSumGroup do
+        builder.TotalSum format_money(invoice.total)
       end
     end
 
