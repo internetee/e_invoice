@@ -1,6 +1,5 @@
 module EstonianEInvoice
   class Invoice
-    attr_accessor :id
     attr_accessor :number
     attr_accessor :date
     attr_accessor :recipient_id_code
@@ -12,6 +11,8 @@ module EstonianEInvoice
     attr_reader :buyer
     attr_reader :beneficiary
     attr_reader :items
+
+    alias_method :id, :number
 
     def initialize(seller:, buyer:, beneficiary:, items:)
       @seller = seller
