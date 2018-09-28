@@ -68,17 +68,17 @@ module EstonianEInvoice
 
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
-        builder.TotalSum format_money(invoice.total)
+        builder.TotalSum format_amount(invoice.total)
       end
     end
 
     def build_invoice_payment_details(invoice)
       builder.PaymentInfo do
-        builder.Currency invoice.total.currency.iso_code
+        builder.Currency invoice.currency
         builder.PaymentRefId invoice.reference_number
         builder.Payable 'YES'
         builder.PayDueDate invoice.due_date
-        builder.PaymentTotalSum format_money(invoice.total)
+        builder.PaymentTotalSum format_amount(invoice.total)
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
         builder.PayToAccount invoice.beneficiary.iban
@@ -101,12 +101,12 @@ module EstonianEInvoice
     def build_footer(e_invoice)
       builder.Footer do
         builder.TotalNumberInvoices e_invoice.invoice_count
-        builder.TotalAmount format_money(e_invoice.total)
+        builder.TotalAmount format_amount(e_invoice.total)
       end
     end
 
-    def format_money(money)
-      money.format(decimal_mark: '.', symbol: false, thousands_separator: false)
+    def format_amount(amount)
+      sprintf('%.2f', amount)
     end
   end
 end

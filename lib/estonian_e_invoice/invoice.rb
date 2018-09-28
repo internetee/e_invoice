@@ -6,6 +6,7 @@ module EstonianEInvoice
     attr_accessor :reference_number
     attr_accessor :due_date
     attr_accessor :payer_name
+    attr_accessor :currency
 
     attr_reader :seller
     attr_reader :buyer

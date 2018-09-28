@@ -37,7 +37,7 @@ beneficiary.iban = 'DE91100000000123456789'
 
 item = EstonianEInvoice::InvoiceItem.new
 item.description = 'acme services'
-item.amount = Money.from_amount(10)
+item.amount = 10
 
 invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary, 
                                         items: [item])
@@ -48,6 +48,7 @@ invoice.recipient_id_code = 'recipient-1234'
 invoice.reference_number = '1234'
 invoice.due_date = Date.parse('2010-07-07')
 invoice.payer_name = 'John Smith'
+invoice.currency = 'EUR'
 
 invoices = [invoice]
 e_invoice = EstonianEInvoice::EInvoice.new(invoices)

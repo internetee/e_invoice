@@ -3,7 +3,7 @@ require_relative 'amountable_interface_test'
 
 class InvoiceItemDouble
   def amount
-    Money.from_amount(5)
+    5
   end
 end
 
@@ -30,6 +30,6 @@ class InvoiceTest < Minitest::Test
                                             buyer: 'any',
                                             beneficiary: 'any',
                                             items: [InvoiceItemDouble.new, InvoiceItemDouble.new])
-    assert_equal Money.from_amount(10), invoice.total
+    assert_equal 10, invoice.total
   end
 end

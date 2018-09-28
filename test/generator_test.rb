@@ -25,17 +25,17 @@ class EInvoiceDouble
 
     item = EstonianEInvoice::InvoiceItem.new
     item.description = 'acme services'
-    item.amount = Money.from_amount(1000)
+    item.amount = 10
 
     invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
                                             items: [item])
-    invoice.id = 'invoice-1234'
     invoice.number = 'invoice-1234'
     invoice.date = Date.parse('2010-07-06')
     invoice.recipient_id_code = 'recipient-1234'
     invoice.reference_number = '1234'
     invoice.due_date = Date.parse('2010-07-07')
     invoice.payer_name = 'John Smith'
+    invoice.currency = 'EUR'
 
     [invoice]
   end
@@ -45,7 +45,7 @@ class EInvoiceDouble
   end
 
   def total
-    Money.from_amount(3000)
+    100
   end
 end
 
@@ -88,7 +88,7 @@ class GeneratorTest < Minitest::Test
             <InvoiceDate>2010-07-06</InvoiceDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
-            <TotalSum>1000.00</TotalSum>
+            <TotalSum>10.00</TotalSum>
           </InvoiceSumGroup>
           <InvoiceItem>
             <InvoiceItemGroup>
@@ -102,7 +102,7 @@ class GeneratorTest < Minitest::Test
             <PaymentRefId>1234</PaymentRefId>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
-            <PaymentTotalSum>1000.00</PaymentTotalSum>
+            <PaymentTotalSum>10.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
             <PayToAccount>DE91100000000123456789</PayToAccount>
@@ -111,7 +111,7 @@ class GeneratorTest < Minitest::Test
         </Invoice>
         <Footer>
           <TotalNumberInvoices>1</TotalNumberInvoices>
-          <TotalAmount>3000.00</TotalAmount>
+          <TotalAmount>100.00</TotalAmount>
         </Footer>
       </E_Invoice>
     XML
