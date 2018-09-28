@@ -106,7 +106,7 @@ module EstonianEInvoice
     end
 
     def format_amount(amount)
-      sprintf('%.2f', amount)
+      format('%.2f', amount)
     end
   end
 end
