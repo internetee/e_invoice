@@ -35,18 +35,20 @@ class EInvoiceDouble
     end
 
     invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
-                                            items: [invoice_item])
-    invoice.number = 'invoice-1234'
-    invoice.date = Date.parse('2010-07-06')
-    invoice.recipient_id_code = 'recipient-1234'
-    invoice.reference_number = '1234'
-    invoice.due_date = Date.parse('2010-07-07')
-    invoice.payer_name = 'John Smith'
-    invoice.currency = 'EUR'
-    invoice.subtotal = 10
-    invoice.vat_rate = 20
-    invoice.vat_amount = 2
-    invoice.total = 12
+                                            items: [invoice_item]).tap do |invoice|
+      invoice.number = 'invoice-1234'
+      invoice.date = Date.parse('2010-07-06')
+      invoice.recipient_id_code = 'recipient-1234'
+      invoice.reference_number = '1234'
+      invoice.due_date = Date.parse('2010-07-07')
+      invoice.payer_name = 'John Smith'
+      invoice.currency = 'EUR'
+      invoice.subtotal = 10
+      invoice.vat_rate = 20
+      invoice.vat_amount = 2
+      invoice.total = 12
+      invoice.delivery_channel_address = '123456789'
+    end
 
     [invoice]
   end
@@ -82,7 +84,7 @@ class GeneratorTest < Minitest::Test
           <FileId>checksum-1234</FileId>
           <Version>1.2</Version>
         </Header>
-        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234">
+        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234" channelAddress="123456789">
           <InvoiceParties>
             <SellerParty>
               <Name>John Doe</Name>
