@@ -71,10 +71,6 @@ module EstonianEInvoice
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
         builder.InvoiceSum format_decimal(invoice.subtotal, scale: 4)
-        builder.VAT do
-          builder.VATRate format_decimal(invoice.vat_rate)
-          builder.VATSum format_decimal(invoice.vat_amount, scale: 4)
-        end
         builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
         builder.Currency invoice.currency
@@ -122,11 +118,6 @@ module EstonianEInvoice
           builder.InvoiceItemTotalGroup do
             builder.InvoiceItemTotalAmount format_decimal(item.total, scale: 4)
             builder.InvoiceItemTotalSum format_decimal(item.subtotal, scale: 4)
-
-            builder.VAT do
-              builder.VATRate format_decimal(item.vat_rate)
-              builder.VATSum format_decimal(item.vat_amount, scale: 4)
-            end
 
             builder.InvoiceItemTotal format_decimal(item.total, scale: 4)
           end

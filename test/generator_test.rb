@@ -103,10 +103,6 @@ class GeneratorTest < Minitest::Test
           </InvoiceInformation>
           <InvoiceSumGroup>
             <InvoiceSum>10.0000</InvoiceSum>
-            <VAT>
-              <VATRate>20.00</VATRate>
-              <VATSum>2.0000</VATSum>
-            </VAT>
             <TotalVATSum>2.00</TotalSum>
             <TotalSum>12.00</TotalSum>
             <Currency>EUR</Currency>
@@ -131,10 +127,6 @@ class GeneratorTest < Minitest::Test
             <InvoiceItemTotalGroup>
               <InvoiceItemTotalAmount>12.0000</InvoiceItemTotalAmount>
               <InvoiceItemTotalSum>10.0000</InvoiceItemTotalSum>
-              <VAT>
-                <VATRate>20.00</VATRate>
-                <VATSum>2.0000</VATSum>
-              </VAT>
               <InvoiceItemTotal>12.0000</InvoiceItemTotal>
             </InvoiceItemTotalGroup>
           </InvoiceItem>
