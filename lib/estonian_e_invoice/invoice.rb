@@ -7,6 +7,7 @@ module EstonianEInvoice
     attr_accessor :due_date
     attr_accessor :payer_name
     attr_accessor :subtotal
+    attr_accessor :vat_rate
     attr_accessor :vat_amount
     attr_accessor :total
     attr_accessor :currency
