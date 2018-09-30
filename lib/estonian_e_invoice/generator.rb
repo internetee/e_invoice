@@ -95,12 +95,28 @@ module EstonianEInvoice
           builder.InvoiceItemGroup do
             builder.ItemEntry do
               builder.Description item.description
+
+              builder.ItemDetailInfo do
+                builder.ItemUnit item.unit
+                builder.ItemAmount format_decimal(item.quantity, scale: 4)
+                builder.ItemPrice format_decimal(item.price, scale: 4)
+              end
+
+              builder.ItemSum format_decimal(item.subtotal, scale: 4)
+
               builder.VAT do
                 builder.VATRate format_decimal(item.vat_rate)
                 builder.VATSum format_decimal(item.vat_amount, scale: 4)
               end
+
               builder.ItemTotal format_decimal(item.total, scale: 4)
             end
+          end
+
+          builder.InvoiceItemTotalGroup do
+            builder.InvoiceItemTotalAmount format_decimal(item.total, scale: 4)
+            builder.InvoiceItemTotalSum format_decimal(item.subtotal, scale: 4)
+            builder.InvoiceItemTotal format_decimal(item.total, scale: 4)
           end
         end
       end

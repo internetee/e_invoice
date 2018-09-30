@@ -23,15 +23,19 @@ class EInvoiceDouble
     beneficiary.name = 'William Jones'
     beneficiary.iban = 'DE91100000000123456789'
 
-    item = EstonianEInvoice::InvoiceItem.new
-    item.description = 'acme services'
-    item.vat_rate = 20
-    item.vat_amount = 2
-    item.amount = 10
-    item.total = 12
+    invoice_item = EstonianEInvoice::InvoiceItem.new.tap do |item|
+      item.description = 'acme services'
+      item.quantity = 1
+      item.unit = 'pc'
+      item.price = 10
+      item.subtotal = 10
+      item.vat_rate = 20
+      item.vat_amount = 2
+      item.total = 12
+    end
 
     invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
-                                            items: [item])
+                                            items: [invoice_item])
     invoice.number = 'invoice-1234'
     invoice.date = Date.parse('2010-07-06')
     invoice.recipient_id_code = 'recipient-1234'
@@ -103,6 +107,12 @@ class GeneratorTest < Minitest::Test
             <InvoiceItemGroup>
               <ItemEntry>
                 <Description>acme services</Description>
+                <ItemDetailInfo>
+                  <ItemUnit>pc</ItemUnit>
+                  <ItemAmount>1.0000</ItemAmount>
+                  <ItemPrice>10.0000</ItemPrice>
+                </ItemDetailInfo>
+                <ItemSum>10.0000</ItemSum>
                 <VAT>
                   <VATRate>20.00</VATRate>
                   <VATSum>2.0000</VATSum>
@@ -110,6 +120,11 @@ class GeneratorTest < Minitest::Test
                 <ItemTotal>12.0000</ItemTotal>
               </ItemEntry>
             </InvoiceItemGroup>
+            <InvoiceItemTotalGroup>
+              <InvoiceItemTotalAmount>12.0000</InvoiceItemTotalAmount>
+              <InvoiceItemTotalSum>10.0000</InvoiceItemTotalSum>
+              <InvoiceItemTotal>12.0000</InvoiceItemTotal>
+            </InvoiceItemTotalGroup>
           </InvoiceItem>
           <PaymentInfo>
             <Currency>EUR</Currency>
