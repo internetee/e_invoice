@@ -63,6 +63,7 @@ module EstonianEInvoice
         builder.DocumentName 'ARVE'
         builder.InvoiceNumber invoice.number
         builder.InvoiceDate invoice.date
+        builder.DueDate invoice.due_date
       end
     end
 

@@ -96,6 +96,7 @@ class GeneratorTest < Minitest::Test
             <DocumentName>ARVE</DocumentName>
             <InvoiceNumber>invoice-1234</InvoiceNumber>
             <InvoiceDate>2010-07-06</InvoiceDate>
+            <DueDate>2010-07-07</DueDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
             <InvoiceSum>10.0000</InvoiceSum>
