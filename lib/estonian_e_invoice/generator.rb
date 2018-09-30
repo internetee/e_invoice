@@ -96,6 +96,7 @@ module EstonianEInvoice
                 builder.VATRate format_decimal(item.vat_rate)
                 builder.VATSum format_decimal(item.vat_amount, scale: 4)
               end
+              builder.ItemTotal format_decimal(item.total, scale: 4)
             end
           end
         end
