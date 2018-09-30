@@ -39,6 +39,7 @@ class EInvoiceDouble
     invoice.due_date = Date.parse('2010-07-07')
     invoice.payer_name = 'John Smith'
     invoice.currency = 'EUR'
+    invoice.subtotal = 10
     invoice.vat_amount = 2
     invoice.total = 12
 
@@ -93,6 +94,7 @@ class GeneratorTest < Minitest::Test
             <InvoiceDate>2010-07-06</InvoiceDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
+            <InvoiceSum>10.0000</InvoiceSum>
             <TotalVATSum>2.00</TotalSum>
             <TotalSum>12.00</TotalSum>
             <Currency>EUR</Currency>
