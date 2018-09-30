@@ -39,6 +39,7 @@ class EInvoiceDouble
     invoice.due_date = Date.parse('2010-07-07')
     invoice.payer_name = 'John Smith'
     invoice.currency = 'EUR'
+    invoice.total = 12
 
     [invoice]
   end
@@ -48,7 +49,7 @@ class EInvoiceDouble
   end
 
   def total
-    100
+    12
   end
 end
 
@@ -91,7 +92,7 @@ class GeneratorTest < Minitest::Test
             <InvoiceDate>2010-07-06</InvoiceDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
-            <TotalSum>10.00</TotalSum>
+            <TotalSum>12.00</TotalSum>
           </InvoiceSumGroup>
           <InvoiceItem>
             <InvoiceItemGroup>
@@ -110,7 +111,7 @@ class GeneratorTest < Minitest::Test
             <PaymentRefId>1234</PaymentRefId>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
-            <PaymentTotalSum>10.00</PaymentTotalSum>
+            <PaymentTotalSum>12.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
             <PayToAccount>DE91100000000123456789</PayToAccount>
@@ -119,7 +120,7 @@ class GeneratorTest < Minitest::Test
         </Invoice>
         <Footer>
           <TotalNumberInvoices>1</TotalNumberInvoices>
-          <TotalAmount>100.00</TotalAmount>
+          <TotalAmount>12.00</TotalAmount>
         </Footer>
       </E_Invoice>
     XML

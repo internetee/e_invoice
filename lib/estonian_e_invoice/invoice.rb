@@ -7,6 +7,7 @@ module EstonianEInvoice
     attr_accessor :due_date
     attr_accessor :payer_name
     attr_accessor :currency
+    attr_accessor :total
 
     attr_reader :seller
     attr_reader :buyer
@@ -20,10 +21,6 @@ module EstonianEInvoice
       @buyer = buyer
       @beneficiary = beneficiary
       @items = items
-    end
-
-    def total
-      items.sum(&:amount)
     end
   end
 end
