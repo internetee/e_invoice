@@ -68,7 +68,7 @@ module EstonianEInvoice
 
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
-        builder.TotalSum format_amount(invoice.total)
+        builder.TotalSum format_decimal(invoice.total)
       end
     end
 
@@ -78,7 +78,7 @@ module EstonianEInvoice
         builder.PaymentRefId invoice.reference_number
         builder.Payable 'YES'
         builder.PayDueDate invoice.due_date
-        builder.PaymentTotalSum format_amount(invoice.total)
+        builder.PaymentTotalSum format_decimal(invoice.total)
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
         builder.PayToAccount invoice.beneficiary.iban
@@ -101,12 +101,12 @@ module EstonianEInvoice
     def build_footer(e_invoice)
       builder.Footer do
         builder.TotalNumberInvoices e_invoice.invoice_count
-        builder.TotalAmount format_amount(e_invoice.total)
+        builder.TotalAmount format_decimal(e_invoice.total)
       end
     end
 
-    def format_amount(amount)
-      format('%.2f', amount)
+    def format_decimal(decimal, scale: 2)
+      format("%.#{scale}f", decimal)
     end
   end
 end
