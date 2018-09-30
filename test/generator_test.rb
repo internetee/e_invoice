@@ -25,6 +25,8 @@ class EInvoiceDouble
 
     item = EstonianEInvoice::InvoiceItem.new
     item.description = 'acme services'
+    item.vat_rate = 20
+    item.vat_amount = 2
     item.amount = 10
 
     invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
@@ -94,6 +96,10 @@ class GeneratorTest < Minitest::Test
             <InvoiceItemGroup>
               <ItemEntry>
                 <Description>acme services</Description>
+                <VAT>
+                  <VATRate>20.00</VATRate>
+                  <VATSum>2.0000</VATSum>
+                </VAT>
               </ItemEntry>
             </InvoiceItemGroup>
           </InvoiceItem>
