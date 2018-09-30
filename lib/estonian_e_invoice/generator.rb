@@ -68,6 +68,7 @@ module EstonianEInvoice
 
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
+        builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
         builder.Currency invoice.currency
       end
