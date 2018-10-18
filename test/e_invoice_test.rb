@@ -6,12 +6,18 @@ class EInvoiceTest < Minitest::Test
   include EInvoiceableInterfaceTest
 
   def setup
-    @e_invoice = @object = EstonianEInvoice::EInvoice.new
+    @e_invoice = @object = EstonianEInvoice::EInvoice.new(['invoice'])
+  end
+
+  def test_requires_at_least_one_invoice
+    assert_raises ArgumentError do
+      EstonianEInvoice::EInvoice.new([])
+    end
   end
 
   def test_default_date_is_today_date
     Date.stub(:today, Date.parse('2010-07-05')) do
-      e_invoice = EstonianEInvoice::EInvoice.new
+      e_invoice = EstonianEInvoice::EInvoice.new(['invoice'])
       assert_equal Date.parse('2010-07-05'), e_invoice.date
     end
   end
