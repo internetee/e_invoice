@@ -5,7 +5,7 @@ module EstonianEInvoice
     attr_reader :invoices
 
     def initialize(invoices)
-      raise ArgumentError, 'At lest one invoice is required' if invoices.empty?
+      raise ArgumentError, 'At least one invoice is required' if invoices.empty?
 
       @date = Date.today
       @checksum = generate_checksum
