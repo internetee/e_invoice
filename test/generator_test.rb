@@ -27,11 +27,10 @@ class EInvoiceDouble
       item.description = 'acme services'
       item.quantity = 1
       item.unit = 'pc'
-      item.price = 10
-      item.subtotal = 10
-      item.vat_rate = 20
-      item.vat_amount = 2
-      item.total = 12
+      item.price = 100
+      item.subtotal = 100
+      item.vat = EstonianEInvoice::VAT::VAT.new(rate: 20, amount: 20)
+      item.total = 120
     end
 
     invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
@@ -43,10 +42,10 @@ class EInvoiceDouble
       invoice.due_date = Date.parse('2010-07-07')
       invoice.payer_name = 'John Smith'
       invoice.currency = 'EUR'
-      invoice.subtotal = 10
+      invoice.subtotal = 100
       invoice.vat_rate = 20
-      invoice.vat_amount = 2
-      invoice.total = 12
+      invoice.vat_amount = 20
+      invoice.total = 120
       invoice.delivery_channel_address = '123456789'
     end
 
@@ -58,7 +57,7 @@ class EInvoiceDouble
   end
 
   def total
-    12
+    120
   end
 end
 
@@ -102,9 +101,9 @@ class GeneratorTest < Minitest::Test
             <DueDate>2010-07-07</DueDate>
           </InvoiceInformation>
           <InvoiceSumGroup>
-            <InvoiceSum>10.0000</InvoiceSum>
-            <TotalVATSum>2.00</TotalSum>
-            <TotalSum>12.00</TotalSum>
+            <InvoiceSum>100.0000</InvoiceSum>
+            <TotalVATSum>20.00</TotalSum>
+            <TotalSum>120.00</TotalSum>
             <Currency>EUR</Currency>
           </InvoiceSumGroup>
           <InvoiceItem>
@@ -114,20 +113,20 @@ class GeneratorTest < Minitest::Test
                 <ItemDetailInfo>
                   <ItemUnit>pc</ItemUnit>
                   <ItemAmount>1.0000</ItemAmount>
-                  <ItemPrice>10.0000</ItemPrice>
+                  <ItemPrice>100.0000</ItemPrice>
                 </ItemDetailInfo>
-                <ItemSum>10.0000</ItemSum>
-                <VAT>
+                <ItemSum>100.0000</ItemSum>
+                <VAT vatId="TAX">
                   <VATRate>20.00</VATRate>
-                  <VATSum>2.0000</VATSum>
+                  <VATSum>20.0000</VATSum>
                 </VAT>
-                <ItemTotal>12.0000</ItemTotal>
+                <ItemTotal>120.0000</ItemTotal>
               </ItemEntry>
             </InvoiceItemGroup>
             <InvoiceItemTotalGroup>
-              <InvoiceItemTotalAmount>12.0000</InvoiceItemTotalAmount>
-              <InvoiceItemTotalSum>10.0000</InvoiceItemTotalSum>
-              <InvoiceItemTotal>12.0000</InvoiceItemTotal>
+              <InvoiceItemTotalAmount>120.0000</InvoiceItemTotalAmount>
+              <InvoiceItemTotalSum>100.0000</InvoiceItemTotalSum>
+              <InvoiceItemTotal>120.0000</InvoiceItemTotal>
             </InvoiceItemTotalGroup>
           </InvoiceItem>
           <PaymentInfo>
@@ -135,7 +134,7 @@ class GeneratorTest < Minitest::Test
             <PaymentRefId>1234</PaymentRefId>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
-            <PaymentTotalSum>12.00</PaymentTotalSum>
+            <PaymentTotalSum>120.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
             <PayToAccount>DE91100000000123456789</PayToAccount>
@@ -144,7 +143,7 @@ class GeneratorTest < Minitest::Test
         </Invoice>
         <Footer>
           <TotalNumberInvoices>1</TotalNumberInvoices>
-          <TotalAmount>12.00</TotalAmount>
+          <TotalAmount>120.00</TotalAmount>
         </Footer>
       </E_Invoice>
     XML

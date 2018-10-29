@@ -5,8 +5,7 @@ module EstonianEInvoice
     attr_accessor :unit
     attr_accessor :price
     attr_accessor :subtotal
-    attr_accessor :vat_rate
-    attr_accessor :vat_amount
+    attr_accessor :vat
     attr_accessor :total
   end
 end
