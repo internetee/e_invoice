@@ -1,0 +1,4 @@
+production:
+  wsdl: "https://finance.omniva.eu/finance/erp/erpServices.wsdl"
+test:
+  wsdl: "https://testfinance.post.ee/finance/erp/erpServices.wsdl"
