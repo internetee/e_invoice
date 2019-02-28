@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = EstonianEInvoice::VERSION
   spec.authors = ['Artur Beljajev', 'Maciej Szlosarczyk']
   spec.email = ['artur.beljajev@internet.ee', 'maciej.szlosarczyk@internet.ee']
-  spec.summary = 'A Ruby interface to the Estonian company register (Äriregister) API'
+  spec.summary = 'Ruby API for generating and delivering Estonian e-invoices'
   spec.homepage = 'https://github.com/internetee/e_invoice'
   spec.license = 'MIT'
 
