@@ -5,21 +5,22 @@ module EstonianEInvoice
   module Providers
     class Omniva
       SOAP_OPERATION = :e_invoice
+      private_constant :SOAP_OPERATION
 
-      def initialize(soap_client:, secret_key:)
-        @soap_client = soap_client
-        @secret_key = secret_key
+      def initialize(config: EstonianEInvoice::Config.new(env: 'production', filename: 'lib/estonian_e_invoice/providers/omniva/config.yml'))
+        @soap_client = Savon.client(wsdl: config.wsdl)
+        @config = config
       end
 
       def deliver(e_invoice)
         message = normalize_e_invoice_xml(e_invoice.generate)
-        soap_client.call(SOAP_OPERATION, attributes: { authPhrase: secret_key }, message: message)
+        soap_client.call(SOAP_OPERATION, attributes: { authPhrase: 'test' }, message: message)
       end
 
       private
 
+      attr_reader :config
       attr_reader :soap_client
-      attr_reader :secret_key
 
       def normalize_e_invoice_xml(xml)
         xml_doc = Nokogiri.XML(xml)
