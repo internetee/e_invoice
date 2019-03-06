@@ -4,9 +4,9 @@ module EstonianEInvoice
     attr_reader :data
 
     def initialize(env:, filename:)
-      @env = env.to_s
+      @env = env
       @data = YAML.load_file(filename)
-      define_methods_for_environment(data[@env].keys)
+      define_methods_for_environment(data[env].keys)
     end
 
     private

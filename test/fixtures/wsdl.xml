@@ -453,7 +453,7 @@
   </wsdl:binding>
   <wsdl:service name="ErpDataExchangeService">
     <wsdl:port binding="tns:ErpDataExchangeSoap11" name="ErpDataExchangeSoap11">
-      <soap:address location="https://testfinance.post.ee:443/finance/erp/"/>
+      <soap:address location="https://finance.omniva.eu:443/finance/erp/"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
