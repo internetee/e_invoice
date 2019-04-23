@@ -2,7 +2,7 @@ require 'test_helper'
 
 class NoVATTest < Minitest::Test
   def setup
-    @vat = EstonianEInvoice::VAT::NoVAT.new
+    @vat = EInvoice::VAT::NoVAT.new
   end
 
   def test_returns_type

@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class InvoiceItem
     attr_accessor :description
     attr_accessor :quantity

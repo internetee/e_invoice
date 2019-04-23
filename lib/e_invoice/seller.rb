@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class Seller
     attr_accessor :name
     attr_accessor :reg_no

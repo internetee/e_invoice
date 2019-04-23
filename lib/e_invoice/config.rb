@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class Config
     attr_reader :env
     attr_reader :data

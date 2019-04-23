@@ -12,28 +12,28 @@ class EInvoiceDouble
   end
 
   def invoices
-    seller = EstonianEInvoice::Seller.new
+    seller = EInvoice::Seller.new
     seller.name = 'John Doe'
     seller.reg_no = 'john-1234'
 
-    buyer = EstonianEInvoice::Buyer.new
+    buyer = EInvoice::Buyer.new
     buyer.name = 'Jane Doe'
 
-    beneficiary = EstonianEInvoice::Beneficiary.new
+    beneficiary = EInvoice::Beneficiary.new
     beneficiary.name = 'William Jones'
     beneficiary.iban = 'DE91100000000123456789'
 
-    invoice_item = EstonianEInvoice::InvoiceItem.new.tap do |item|
+    invoice_item = EInvoice::InvoiceItem.new.tap do |item|
       item.description = 'acme services'
       item.quantity = 1
       item.unit = 'pc'
       item.price = 100
       item.subtotal = 100
-      item.vat = EstonianEInvoice::VAT::VAT.new(rate: 20, amount: 20)
+      item.vat = EInvoice::VAT::VAT.new(rate: 20, amount: 20)
       item.total = 120
     end
 
-    invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
+    invoice = EInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
                                             items: [invoice_item]).tap do |invoice|
       invoice.number = 'invoice-1234'
       invoice.date = Date.parse('2010-07-06')
@@ -71,7 +71,7 @@ end
 
 class GeneratorTest < Minitest::Test
   def setup
-    @generator = EstonianEInvoice::Generator.new
+    @generator = EInvoice::Generator.new
   end
 
   def test_generates_e_invoice_xml

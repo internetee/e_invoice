@@ -20,13 +20,13 @@ class ProviderOmnivaTest < Minitest::Test
   #include ProviderInterfaceTest
 
   def setup
-    #@object = EstonianEInvoice::Providers::Omniva.new
+    #@object = EInvoice::Providers::Omniva.new
   end
 
   def test_sends_e_invoice_to_service_provider
     wsdl_request = stub_wsdl_request
     main_request = stub_main_request
-    provider = EstonianEInvoice::Providers::Omniva.new
+    provider = EInvoice::Providers::Omniva.new
 
     provider.deliver(EInvoiceDouble.new)
 

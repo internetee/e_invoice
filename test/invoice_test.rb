@@ -2,7 +2,7 @@ require 'test_helper'
 
 class InvoiceTest < Minitest::Test
   def test_aliases_id_to_number
-    invoice = EstonianEInvoice::Invoice.new(seller: 'any',
+    invoice = EInvoice::Invoice.new(seller: 'any',
                                             buyer: 'any',
                                             beneficiary: 'any',
                                             items: [])

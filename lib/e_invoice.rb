@@ -13,7 +13,7 @@ require 'e_invoice/generator'
 require 'e_invoice/config'
 require 'e_invoice/providers/omniva'
 
-module EstonianEInvoice
+module EInvoice
   def self.provider=(provider)
     @provider = provider
   end

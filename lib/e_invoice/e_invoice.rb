@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class EInvoice
     attr_reader :date
     attr_reader :checksum
@@ -12,7 +12,7 @@ module EstonianEInvoice
       @invoices = invoices
     end
 
-    def deliver(provider = EstonianEInvoice.provider)
+    def deliver(provider = EInvoice.provider)
       provider.deliver(self)
     end
 

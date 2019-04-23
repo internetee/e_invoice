@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class Generator
     def initialize
       @builder = Builder::XmlMarkup.new

@@ -21,25 +21,25 @@ require 'e_invoice'
 # Configure provider
 soap_client = Savon.client(wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl')
 secret_key = 'secret-key-from-omniva-web-ui' 
-EstonianEInvoice.provider = EstonianEInvoice::Providers::Omniva.new(soap_client: soap_client,
+EInvoice.provider = EInvoice::Providers::Omniva.new(soap_client: soap_client,
                                                                     secret_key: secret_key)
                                                                     
-seller = EstonianEInvoice::Seller.new
+seller = EInvoice::Seller.new
 seller.name = 'John Doe'
 seller.reg_no = 'john-1234'
 
-buyer = EstonianEInvoice::Buyer.new
+buyer = EInvoice::Buyer.new
 buyer.name = 'Jane Doe'
 
-beneficiary = EstonianEInvoice::Beneficiary.new
+beneficiary = EInvoice::Beneficiary.new
 beneficiary.name = 'William Jones'
 beneficiary.iban = 'DE91100000000123456789'
 
-item = EstonianEInvoice::InvoiceItem.new
+item = EInvoice::InvoiceItem.new
 item.description = 'acme services'
 item.amount = 10
 
-invoice = EstonianEInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary, 
+invoice = EInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary, 
                                         items: [item])
 invoice.id = 'invoice-1234'
 invoice.number = 'invoice-1234'
@@ -51,7 +51,7 @@ invoice.payer_name = 'John Smith'
 invoice.currency = 'EUR'
 
 invoices = [invoice]
-e_invoice = EstonianEInvoice::EInvoice.new(invoices)
+e_invoice = EInvoice::EInvoice.new(invoices)
 e_invoice.deliver # Delivers to configured provider
 ```
 
@@ -60,7 +60,7 @@ e_invoice.deliver # Delivers to configured provider
 2. Ensure it has a method with the signature of `deliver(e_invoice)`, which will be called
 by `EInvoice` class when you ask it to be delivered, passing itself along.
 3. Point the gem to use your brand new provider by passing an invoice of it 
-to `EstonianEInvoice.provider` (see `Usage` section).
+to `EInvoice.provider` (see `Usage` section).
 
 ## Resources
 - [E-invoice description (in Estonian)](https://www.pangaliit.ee/arveldused/e-arve)

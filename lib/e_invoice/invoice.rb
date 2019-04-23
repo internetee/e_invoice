@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   class Invoice
     attr_accessor :number
     attr_accessor :date

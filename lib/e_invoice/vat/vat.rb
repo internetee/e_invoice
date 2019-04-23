@@ -1,4 +1,4 @@
-module EstonianEInvoice
+module EInvoice
   module VAT
     class VAT
       attr_accessor :rate
