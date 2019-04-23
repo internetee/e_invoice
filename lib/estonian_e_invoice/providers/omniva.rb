@@ -7,7 +7,7 @@ module EstonianEInvoice
       SOAP_OPERATION = :e_invoice
       private_constant :SOAP_OPERATION
 
-      def initialize(config: EstonianEInvoice::Config.new(env: 'production', filename: 'lib/estonian_e_invoice/providers/omniva/config.yml'))
+      def initialize(config: EstonianEInvoice::Config.new(env: 'production', filename: 'lib/e_invoice/providers/omniva/config.yml'))
         @soap_client = Savon.client(wsdl: config.wsdl)
         @config = config
       end

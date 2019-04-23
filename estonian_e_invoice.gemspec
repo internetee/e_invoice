@@ -1,9 +1,9 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'estonian_e_invoice/version'
+require 'e_invoice/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'estonian_e_invoice'
+  spec.name = 'e_invoice'
   spec.version = EstonianEInvoice::VERSION
   spec.authors = ['Artur Beljajev', 'Maciej Szlosarczyk']
   spec.email = ['artur.beljajev@internet.ee', 'maciej.szlosarczyk@internet.ee']

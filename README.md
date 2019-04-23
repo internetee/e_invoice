@@ -1,8 +1,8 @@
 # Ruby API for generating and delivering Estonian e-invoices
 
-[![Build Status](https://travis-ci.org/internetee/estonian_e_invoice.svg?branch=master)](https://travis-ci.org/internetee/estonian_e_invoice)
-[![Code Climate](https://codeclimate.com/github/internetee/estonian_e_invoice/badges/gpa.svg)](https://codeclimate.com/github/internetee/estonian_e_invoice)
-[![Test Coverage](https://codeclimate.com/github/internetee/estonian_e_invoice/badges/coverage.svg)](https://codeclimate.com/github/internetee/estonian_e_invoice/coverage)
+[![Build Status](https://travis-ci.org/internetee/e_invoice.svg?branch=master)](https://travis-ci.org/internetee/e_invoice)
+[![Code Climate](https://codeclimate.com/github/internetee/e_invoice/badges/gpa.svg)](https://codeclimate.com/github/internetee/e_invoice)
+[![Test Coverage](https://codeclimate.com/github/internetee/e_invoice/badges/coverage.svg)](https://codeclimate.com/github/internetee/e_invoice/coverage)
 
 Implements Estonian e-invoice standard v1.2.
 
@@ -12,11 +12,11 @@ Implements Estonian e-invoice standard v1.2.
 ## Installation with Bundler
 Add gem to your `Gemfile`:
 
-`gem 'estonian_e_invoice', git: 'https://github.com/internetee/estonian_e_invoice', branch: 'master'`
+`gem 'e_invoice', git: 'https://github.com/internetee/e_invoice', branch: 'master'`
 
 ## Usage
 ```ruby
-require 'estonian_e_invoice'
+require 'e_invoice'
 
 # Configure provider
 soap_client = Savon.client(wsdl: 'https://testfinance.post.ee/finance/erp/erpServices.wsdl')
@@ -56,7 +56,7 @@ e_invoice.deliver # Delivers to configured provider
 ```
 
 ## Adding new provider
-1. Create a new class in `lib/estonian_e_invoice/providers`, for example `custom.rb`.
+1. Create a new class in `lib/e_invoice/providers`, for example `custom.rb`.
 2. Ensure it has a method with the signature of `deliver(e_invoice)`, which will be called
 by `EInvoice` class when you ask it to be delivered, passing itself along.
 3. Point the gem to use your brand new provider by passing an invoice of it 
