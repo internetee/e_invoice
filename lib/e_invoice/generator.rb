@@ -106,9 +106,9 @@ module EInvoice
 
               builder.ItemSum format_decimal(item.subtotal, scale: 4)
 
-              builder.VAT(vatId: item.vat.type) do
-                builder.VATRate format_decimal(item.vat.rate)
-                builder.VATSum format_decimal(item.vat.amount, scale: 4)
+              builder.VAT(vatId: 'TAX') do
+                builder.VATRate format_decimal(item.vat_rate)
+                builder.VATSum format_decimal(item.vat_amount, scale: 4)
               end
 
               builder.ItemTotal format_decimal(item.total, scale: 4)

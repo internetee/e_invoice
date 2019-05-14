@@ -29,12 +29,13 @@ class EInvoiceDouble
       item.unit = 'pc'
       item.price = 100
       item.subtotal = 100
-      item.vat = EInvoice::VAT::VAT.new(rate: 20, amount: 20)
+      item.vat_rate = 20
+      item.vat_amount = 20
       item.total = 120
     end
 
     invoice = EInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
-                                            items: [invoice_item]).tap do |invoice|
+                                    items: [invoice_item]).tap do |invoice|
       invoice.number = 'invoice-1234'
       invoice.date = Date.parse('2010-07-06')
       invoice.recipient_id_code = 'recipient-1234'
@@ -43,7 +44,6 @@ class EInvoiceDouble
       invoice.payer_name = 'John Smith'
       invoice.currency = 'EUR'
       invoice.subtotal = 100
-      invoice.vat_rate = 20
       invoice.vat_amount = 20
       invoice.total = 120
       invoice.delivery_channel_address = '123456789'
