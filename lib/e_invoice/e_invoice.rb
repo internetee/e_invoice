@@ -2,17 +2,15 @@ module EInvoice
   class EInvoice
     attr_reader :date
     attr_reader :checksum
-    attr_reader :invoices
+    attr_reader :invoice
 
-    def initialize(invoices)
-      raise ArgumentError, 'At least one invoice is required' if invoices.empty?
-
-      @date = Date.today
+    def initialize(date:, invoice:)
+      @date = date
       @checksum = generate_checksum
-      @invoices = invoices
+      @invoice = invoice
     end
 
-    def deliver(provider = EInvoice.provider)
+    def deliver(provider = ::EInvoice.provider)
       provider.deliver(self)
     end
 
@@ -21,11 +19,11 @@ module EInvoice
     end
 
     def invoice_count
-      invoices.size
+      1
     end
 
     def total
-      invoices.sum(&:total)
+      invoice.total
     end
 
     private

@@ -16,8 +16,12 @@ class EInvoiceDouble
     seller.name = 'John Doe'
     seller.reg_no = 'john-1234'
 
+    buyer_bank_account = EInvoice::BankAccount.new
+    buyer_bank_account.number = 'GB33BUKB20201555555555'
+
     buyer = EInvoice::Buyer.new
     buyer.name = 'Jane Doe'
+    buyer.bank_account = buyer_bank_account
 
     beneficiary = EInvoice::Beneficiary.new
     beneficiary.name = 'William Jones'
@@ -91,6 +95,9 @@ class GeneratorTest < Minitest::Test
             </SellerParty>
             <BuyerParty>
               <Name>Jane Doe</Name>
+                <AccountInfo>
+                  <AccountNumber>GB33BUKB20201555555555</AccountNumber>
+                </AccountInfo>
             </BuyerParty>
           </InvoiceParties>
           <InvoiceInformation>

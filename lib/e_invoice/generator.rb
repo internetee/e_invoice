@@ -54,6 +54,9 @@ module EInvoice
 
         builder.BuyerParty do
           builder.Name invoice.buyer.name
+          builder.AccountInfo do
+            builder.AccountNumber invoice.buyer.bank_account.number
+          end
         end
       end
     end
