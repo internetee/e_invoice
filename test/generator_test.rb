@@ -50,7 +50,6 @@ class EInvoiceDouble
       invoice.subtotal = 100
       invoice.vat_amount = 20
       invoice.total = 120
-      invoice.delivery_channel_address = '123456789'
     end
 
     [invoice]
@@ -87,7 +86,7 @@ class GeneratorTest < Minitest::Test
           <FileId>checksum-1234</FileId>
           <Version>1.2</Version>
         </Header>
-        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234" channelAddress="123456789">
+        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234">
           <InvoiceParties>
             <SellerParty>
               <Name>John Doe</Name>

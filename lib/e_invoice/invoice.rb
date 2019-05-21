@@ -10,7 +10,6 @@ module EInvoice
     attr_accessor :vat_amount
     attr_accessor :total
     attr_accessor :currency
-    attr_accessor :delivery_channel_address
 
     attr_reader :seller
     attr_reader :buyer

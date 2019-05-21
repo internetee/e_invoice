@@ -35,8 +35,7 @@ module EInvoice
     def build_invoice(invoice)
       builder.Invoice(invoiceId: invoice.id,
                       regNumber: invoice.recipient_id_code,
-                      sellerRegnumber: invoice.seller.reg_no,
-                      channelAddress: invoice.delivery_channel_address) do
+                      sellerRegnumber: invoice.seller.reg_no) do
         build_invoice_party_details(invoice)
         build_invoice_details(invoice)
         build_invoice_totals(invoice)
