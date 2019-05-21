@@ -1,4 +1,3 @@
-production:
-  wsdl: "https://finance.omniva.eu/finance/erp/erpServices.wsdl"
-staging:
-  wsdl: "https://testfinance.post.ee/finance/erp/erpServices.wsdl"
+soap_operation: e_invoice
+wsdl_test: "https://testfinance.post.ee/finance/erp/erpServices.wsdl"
+wsdl_production: "https://finance.omniva.eu/finance/erp/erpServices.wsdl"
