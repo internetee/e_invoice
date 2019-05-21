@@ -9,7 +9,7 @@ module EInvoice
       builder.E_Invoice('xsi:noNamespaceSchemaLocation' => 'e-invoice_ver1.2.xsd',
                         'xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance') do
         build_header(e_invoice)
-        build_invoices(e_invoice.invoices)
+        build_invoice(e_invoice.invoice)
         build_footer(e_invoice)
       end
     end
@@ -23,12 +23,6 @@ module EInvoice
         builder.Date e_invoice.date
         builder.FileId e_invoice.checksum
         builder.Version '1.2'
-      end
-    end
-
-    def build_invoices(invoices)
-      invoices.each do |invoice|
-        build_invoice(invoice)
       end
     end
 
@@ -88,8 +82,8 @@ module EInvoice
         builder.PaymentTotalSum format_decimal(invoice.total)
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
-        builder.PayToAccount invoice.beneficiary.iban
-        builder.PayToName invoice.beneficiary.name
+        builder.PayToAccount invoice.beneficiary_account_number
+        builder.PayToName invoice.beneficiary_name
       end
     end
 

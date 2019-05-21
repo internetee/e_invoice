@@ -11,7 +11,7 @@ class EInvoiceDouble
     'checksum-1234'
   end
 
-  def invoices
+  def invoice
     seller = EInvoice::Seller.new
     seller.name = 'John Doe'
     seller.reg_no = 'john-1234'
@@ -22,10 +22,6 @@ class EInvoiceDouble
     buyer = EInvoice::Buyer.new
     buyer.name = 'Jane Doe'
     buyer.bank_account = buyer_bank_account
-
-    beneficiary = EInvoice::Beneficiary.new
-    beneficiary.name = 'William Jones'
-    beneficiary.iban = 'DE91100000000123456789'
 
     invoice_item = EInvoice::InvoiceItem.new.tap do |item|
       item.description = 'acme services'
@@ -38,21 +34,20 @@ class EInvoiceDouble
       item.total = 120
     end
 
-    invoice = EInvoice::Invoice.new(seller: seller, buyer: buyer, beneficiary: beneficiary,
-                                    items: [invoice_item]).tap do |invoice|
+    EInvoice::Invoice.new(seller: seller, buyer: buyer, items: [invoice_item]).tap do |invoice|
       invoice.number = 'invoice-1234'
       invoice.date = Date.parse('2010-07-06')
       invoice.recipient_id_code = 'recipient-1234'
       invoice.reference_number = '1234'
       invoice.due_date = Date.parse('2010-07-07')
+      invoice.beneficiary_name = 'Acme Ltd'
+      invoice.beneficiary_account_number = 'GB33BUKB20201555555556'
       invoice.payer_name = 'John Smith'
       invoice.currency = 'EUR'
       invoice.subtotal = 100
       invoice.vat_amount = 20
       invoice.total = 120
     end
-
-    [invoice]
   end
 
   def invoice_count
@@ -143,8 +138,8 @@ class GeneratorTest < Minitest::Test
             <PaymentTotalSum>120.00</PaymentTotalSum>
             <PayerName>John Smith</PayerName>
             <PaymentId>invoice-1234</PaymentId>
-            <PayToAccount>DE91100000000123456789</PayToAccount>
-            <PayToName>William Jones</PayToName>
+            <PayToAccount>GB33BUKB20201555555556</PayToAccount>
+            <PayToName>Acme Ltd</PayToName>
           </PaymentInfo>
         </Invoice>
         <Footer>
