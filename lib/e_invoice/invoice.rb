@@ -1,6 +1,12 @@
 module EInvoice
   class Invoice
+    attr_accessor :seller
+    attr_accessor :buyer
+    attr_accessor :items
+
     attr_accessor :number
+    alias_method :id, :number
+
     attr_accessor :date
     attr_accessor :recipient_id_code
     attr_accessor :reference_number
@@ -12,17 +18,5 @@ module EInvoice
     attr_accessor :vat_amount
     attr_accessor :total
     attr_accessor :currency
-
-    attr_reader :seller
-    attr_reader :buyer
-    attr_reader :items
-
-    alias_method :id, :number
-
-    def initialize(seller:, buyer:, items:)
-      @seller = seller
-      @buyer = buyer
-      @items = items
-    end
   end
 end

@@ -1,20 +1,20 @@
 module EInvoice
   class EInvoice
     attr_reader :date
-    attr_reader :checksum
     attr_reader :invoice
+    attr_reader :id
 
     def initialize(date:, invoice:)
       @date = date
-      @checksum = generate_checksum
       @invoice = invoice
+      @id = generate_id
     end
 
     def deliver(provider = ::EInvoice.provider)
       provider.deliver(self)
     end
 
-    def generate(generator = Generator.new)
+    def to_xml(generator = Generator.new)
       generator.generate(self)
     end
 
@@ -28,7 +28,7 @@ module EInvoice
 
     private
 
-    def generate_checksum
+    def generate_id
       SecureRandom.hex[0...20]
     end
   end

@@ -7,8 +7,8 @@ class EInvoiceDouble
     Date.parse('2010-07-05')
   end
 
-  def checksum
-    'checksum-1234'
+  def id
+    'id1234'
   end
 
   def invoice
@@ -34,7 +34,10 @@ class EInvoiceDouble
       item.total = 120
     end
 
-    EInvoice::Invoice.new(seller: seller, buyer: buyer, items: [invoice_item]).tap do |invoice|
+    EInvoice::Invoice.new.tap do |invoice|
+      invoice.seller = seller
+      invoice.buyer = buyer
+      invoice.items = [invoice_item]
       invoice.number = 'invoice-1234'
       invoice.date = Date.parse('2010-07-06')
       invoice.recipient_id_code = 'recipient-1234'
@@ -78,7 +81,7 @@ class GeneratorTest < Minitest::Test
       <E_Invoice xsi:noNamespaceSchemaLocation="e-invoice_ver1.2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <Header>
           <Date>2010-07-05</Date>
-          <FileId>checksum-1234</FileId>
+          <FileId>id1234</FileId>
           <Version>1.2</Version>
         </Header>
         <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234">

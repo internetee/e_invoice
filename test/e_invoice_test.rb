@@ -1,52 +1,45 @@
 require 'test_helper'
 
 class EInvoiceTest < Minitest::Test
-  def setup
-    @e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'invoice')
-  end
-
   def test_returns_date
     date = Date.parse('2010-07-05')
+
     e_invoice = EInvoice::EInvoice.new(date: date, invoice: 'any')
+
     assert_equal date, e_invoice.date
   end
 
-  def test_generates_checksum
-    refute_empty @e_invoice.checksum
-    assert @e_invoice.checksum.size <= 20, 'Checksum should be less than or equal to 20 chars'
+  def test_generates_random_id
+    e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
+    another_e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
+
+    refute_empty e_invoice.id
+    refute_equal e_invoice.id, another_e_invoice.id
   end
 
-  def test_delegates_to_provider
-    provider = Minitest::Mock.new
-    provider.expect(:deliver, true, [@e_invoice])
-    EInvoice.provider = provider
-
-    @e_invoice.deliver
-    provider.verify
-  end
-
-  def test_delegates_to_generator
+  def test_generates_xml
+    e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
     generator = Minitest::Mock.new
-    generator.expect(:generate, true, [@e_invoice])
+    generator.expect(:generate, 'xml', [e_invoice])
 
-    @e_invoice.generate(generator)
+    xml = e_invoice.to_xml(generator)
+
     generator.verify
+    assert_equal 'xml', xml
   end
 
-  # Only one invoice is supported atm
-  def test_invoice_count
-    assert_equal 1, @e_invoice.invoice_count
+  def test_returns_invoice_count
+    e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
+    assert_equal 1, e_invoice.invoice_count
   end
 
-  def test_calculates_total_amount_of_all_invoices
-    total = 10
-    invoice = EInvoice::Invoice.new(seller: 'seller',
-                                    buyer: 'buyer',
-                                    beneficiary: 'beneficiary',
-                                    items: 'items')
-    invoice.stub(:total, total) do
-      e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: invoice)
-      assert_equal total, e_invoice.total
-    end
+  def test_calculates_total_amount
+    invoice_total = 10
+    invoice = EInvoice::Invoice.new
+    invoice.total = invoice_total
+
+    e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: invoice)
+
+    assert_equal invoice_total, e_invoice.total
   end
 end
