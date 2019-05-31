@@ -17,15 +17,25 @@ class EInvoiceTest < Minitest::Test
     refute_equal e_invoice.id, another_e_invoice.id
   end
 
+  def test_delivers_to_provider
+    e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
+    provider = Minitest::Mock.new
+    provider.expect(:deliver, nil, [e_invoice])
+
+    e_invoice.deliver(provider)
+
+    provider.verify
+  end
+
   def test_generates_xml
+    expected_xml = 'xml'
     e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: 'any')
     generator = Minitest::Mock.new
-    generator.expect(:generate, 'xml', [e_invoice])
+    generator.expect(:generate, expected_xml, [e_invoice])
 
     xml = e_invoice.to_xml(generator)
 
-    generator.verify
-    assert_equal 'xml', xml
+    assert_equal expected_xml, xml
   end
 
   def test_returns_invoice_count
@@ -33,13 +43,13 @@ class EInvoiceTest < Minitest::Test
     assert_equal 1, e_invoice.invoice_count
   end
 
-  def test_calculates_total_amount
+  def test_calculates_total_amount_of_all_invoices
     invoice_total = 10
     invoice = EInvoice::Invoice.new
     invoice.total = invoice_total
 
     e_invoice = EInvoice::EInvoice.new(date: Date.today, invoice: invoice)
 
-    assert_equal invoice_total, e_invoice.total
+    assert_equal invoice_total, e_invoice.total_amount
   end
 end

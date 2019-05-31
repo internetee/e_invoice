@@ -22,7 +22,7 @@ module EInvoice
       1
     end
 
-    def total
+    def total_amount
       invoice.total
     end
 

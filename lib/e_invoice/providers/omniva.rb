@@ -5,7 +5,7 @@ module EInvoice
       attr_reader :soap_client
 
       def initialize(config)
-        @config = OpenStruct.new(config)
+        @config = config
         @soap_client = Savon.client(wsdl: wsdl)
       end
 

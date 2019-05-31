@@ -19,7 +19,6 @@ require 'e_invoice/providers/omniva'
 
 module EInvoice
   class << self
-    attr_accessor :provider_class_name
-    attr_accessor :provider_config
+    attr_accessor :provider
   end
 end

@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class ConfigTest < Minitest::Test
-  def test_parses_config_file_for_a_given_environment
-    config = EInvoice::Config.new(env: 'test', filename: 'test/fixtures/config.yml')
-    assert_equal 'bar', config.foo
+  def test_sets_provider
+    provider = :some
+    EInvoice.provider = provider
+    assert_equal provider, EInvoice.provider
   end
 end

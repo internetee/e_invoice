@@ -21,14 +21,14 @@ class OmnivaProviderTest < Minitest::Test
     wsdl_request = stub_request(:get, 'https://provider.test/wsdl.xml')
                      .to_return(status: 200, body: response_body)
 
-    main_request = stub_request(:post, "https://provider.test/endpoint")
+    main_request = stub_request(:post, 'https://provider.test/endpoint')
                      .with(body: main_request_body)
                      .to_return(status: 200, body: '')
 
-    provider = EInvoice::Providers::Omniva.new(wsdl_production: 'https://provider.test/wsdl.xml',
-                                               soap_operation: 'e_invoice',
-                                               password: 'test-password',
-                                               test_mode: false)
+    provider = EInvoice::Providers::Omniva.new(OpenStruct.new(wsdl_production: 'https://provider.test/wsdl.xml',
+                                                              soap_operation: 'e_invoice',
+                                                              password: 'test-password',
+                                                              test_mode: false))
     provider.deliver(EInvoiceDouble.new)
 
     assert_requested wsdl_request
@@ -36,12 +36,14 @@ class OmnivaProviderTest < Minitest::Test
   end
 
   def test_uses_test_wsdl_when_test_mode_is_on
-    provider = EInvoice::Providers::Omniva.new(test_mode: true, wsdl_test: 'wsdl-test')
+    provider = EInvoice::Providers::Omniva.new(OpenStruct.new(test_mode: true,
+                                                              wsdl_test: 'wsdl-test'))
     assert_equal 'wsdl-test', provider.wsdl
   end
 
   def test_uses_production_wsdl_when_test_mode_is_off
-    provider = EInvoice::Providers::Omniva.new(test_mode: false, wsdl_production: 'wsdl-production')
+    provider = EInvoice::Providers::Omniva.new(OpenStruct.new(test_mode: false,
+                                                              wsdl_production: 'wsdl-production'))
     assert_equal 'wsdl-production', provider.wsdl
   end
 

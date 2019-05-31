@@ -124,7 +124,7 @@ module EInvoice
     def build_footer(e_invoice)
       builder.Footer do
         builder.TotalNumberInvoices e_invoice.invoice_count
-        builder.TotalAmount format_decimal(e_invoice.total)
+        builder.TotalAmount format_decimal(e_invoice.total_amount)
       end
     end
 

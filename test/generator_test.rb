@@ -57,7 +57,7 @@ class EInvoiceDouble
     1
   end
 
-  def total
+  def total_amount
     120
   end
 end
