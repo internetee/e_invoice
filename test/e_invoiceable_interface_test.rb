@@ -4,6 +4,6 @@ module EInvoiceableInterfaceTest
     assert_respond_to @object, :id
     assert_respond_to @object, :invoice
     assert_respond_to @object, :invoice_count
-    assert_respond_to @object, :total
+    assert_respond_to @object, :total_amount
   end
 end
