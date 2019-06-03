@@ -14,8 +14,8 @@ require 'e_invoice/invoice'
 require 'e_invoice/invoice_item'
 require 'e_invoice/generator'
 require 'e_invoice/config'
-require 'e_invoice/providers'
-require 'e_invoice/providers/omniva'
+require 'e_invoice/providers/omniva_provider'
+require 'e_invoice/providers/test_provider'
 
 module EInvoice
   class << self

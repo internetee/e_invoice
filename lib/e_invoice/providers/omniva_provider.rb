@@ -1,11 +1,11 @@
 module EInvoice
   module Providers
-    class Omniva
+    class OmnivaProvider
       attr_reader :config
       attr_reader :soap_client
 
-      def initialize(config)
-        @config = config
+      def initialize(provider_config_user)
+        @config = OpenStruct.new(provider_config.merge(provider_config_user))
         @soap_client = Savon.client(wsdl: wsdl)
       end
 
@@ -39,6 +39,11 @@ module EInvoice
       def normalize_e_invoice_xml(xml)
         xml_doc = Nokogiri.XML(xml)
         xml_doc.root.to_s
+      end
+
+      def provider_config
+        config_file = Pathname(__dir__).join('omniva/config.yml')
+        YAML.load_file(config_file)
       end
     end
   end
