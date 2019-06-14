@@ -47,6 +47,7 @@ module EInvoice
 
         builder.BuyerParty do
           builder.Name invoice.buyer.name
+          builder.RegNumber invoice.buyer.registration_number
           builder.AccountInfo do
             builder.AccountNumber invoice.buyer.bank_account.number
           end
