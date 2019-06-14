@@ -49,6 +49,9 @@ module EInvoice
           builder.Name invoice.buyer.name
           builder.RegNumber invoice.buyer.registration_number
           builder.VATRegNumber invoice.buyer.vat_number
+          builder.ContactData do
+            builder.tag!('E-mailAddress', invoice.buyer.email)
+          end
           builder.AccountInfo do
             builder.AccountNumber invoice.buyer.bank_account.number
           end

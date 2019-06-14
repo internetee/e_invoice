@@ -23,6 +23,7 @@ class EInvoiceDouble
     buyer.name = 'Jane Doe'
     buyer.registration_number = '1234'
     buyer.vat_number = 'US1234'
+    buyer.email = 'info@buyer.test'
     buyer.bank_account = buyer_bank_account
 
     invoice_item = EInvoice::InvoiceItem.new.tap do |item|
@@ -96,6 +97,9 @@ class GeneratorTest < Minitest::Test
               <Name>Jane Doe</Name>
               <RegNumber>1234</RegNumber>
               <VATRegNumber>US1234</VATRegNumber>
+                <ContactData>
+                  <E-mailAddress>info@buyer.test</E-mailAddress>
+                </ContactData>
                 <AccountInfo>
                   <AccountNumber>GB33BUKB20201555555555</AccountNumber>
                 </AccountInfo>
