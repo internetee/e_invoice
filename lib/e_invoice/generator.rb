@@ -85,6 +85,7 @@ module EInvoice
       builder.PaymentInfo do
         builder.Currency invoice.currency
         builder.PaymentRefId invoice.reference_number
+        builder.PaymentDescription invoice.number
         builder.Payable 'YES'
         builder.PayDueDate invoice.due_date
         builder.PaymentTotalSum format_decimal(invoice.total)

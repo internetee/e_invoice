@@ -144,6 +144,7 @@ class GeneratorTest < Minitest::Test
           <PaymentInfo>
             <Currency>EUR</Currency>
             <PaymentRefId>1234</PaymentRefId>
+            <PaymentDescription>invoice-1234</PaymentDescription>
             <Payable>YES</Payable>
             <PayDueDate>2010-07-07</PayDueDate>
             <PaymentTotalSum>120.00</PaymentTotalSum>
