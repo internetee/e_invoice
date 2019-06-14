@@ -50,6 +50,9 @@ module EInvoice
           builder.RegNumber invoice.buyer.registration_number
           builder.VATRegNumber invoice.buyer.vat_number
           builder.ContactData do
+            # According to the Estonian Banking Association, it should be `EmailAddress` (no dash),
+            # however, XML schema requires dashed version.
+            # https://www.pangaliit.ee/arveldused/e-arve
             builder.tag!('E-mailAddress', invoice.buyer.email)
           end
           builder.AccountInfo do
