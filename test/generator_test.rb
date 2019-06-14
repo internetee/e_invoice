@@ -16,15 +16,23 @@ class EInvoiceDouble
     seller.name = 'John Doe'
     seller.reg_no = 'john-1234'
 
-    buyer_bank_account = EInvoice::BankAccount.new
-    buyer_bank_account.number = 'GB33BUKB20201555555555'
-
     buyer = EInvoice::Buyer.new
     buyer.name = 'Jane Doe'
     buyer.registration_number = '1234'
     buyer.vat_number = 'US1234'
     buyer.email = 'info@buyer.test'
+
+    buyer_bank_account = EInvoice::BankAccount.new
+    buyer_bank_account.number = 'GB33BUKB20201555555555'
     buyer.bank_account = buyer_bank_account
+
+    buyer_legal_address = EInvoice::Address.new
+    buyer_legal_address.line1 = 'line 1'
+    buyer_legal_address.line2 = 'line 2'
+    buyer_legal_address.postal_code = '12345'
+    buyer_legal_address.city = 'New York'
+    buyer_legal_address.country = 'United States'
+    buyer.legal_address = buyer_legal_address
 
     invoice_item = EInvoice::InvoiceItem.new.tap do |item|
       item.description = 'acme services'
@@ -99,6 +107,13 @@ class GeneratorTest < Minitest::Test
               <VATRegNumber>US1234</VATRegNumber>
                 <ContactData>
                   <E-mailAddress>info@buyer.test</E-mailAddress>
+                  <LegalAddress>
+                    <PostalAddress1>line 1</PostalAddress1>
+                    <PostalAddress2>line 2</PostalAddress2>
+                    <City>New York</City>
+                    <PostalCode>12345</PostalCode>
+                    <Country>United States</Country>
+                  </LegalAddress>
                 </ContactData>
                 <AccountInfo>
                   <AccountNumber>GB33BUKB20201555555555</AccountNumber>

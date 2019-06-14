@@ -5,5 +5,6 @@ module EInvoice
     attr_accessor :vat_number
     attr_accessor :email
     attr_accessor :bank_account
+    attr_accessor :legal_address
   end
 end

@@ -54,7 +54,16 @@ module EInvoice
             # however, XML schema requires dashed version.
             # https://www.pangaliit.ee/arveldused/e-arve
             builder.tag!('E-mailAddress', invoice.buyer.email)
+
+            builder.LegalAddress do
+              builder.PostalAddress1 invoice.buyer.legal_address.line1
+              builder.PostalAddress2 invoice.buyer.legal_address.line2
+              builder.City invoice.buyer.legal_address.city
+              builder.PostalCode invoice.buyer.legal_address.postal_code
+              builder.Country invoice.buyer.legal_address.country
+            end
           end
+
           builder.AccountInfo do
             builder.AccountNumber invoice.buyer.bank_account.number
           end
