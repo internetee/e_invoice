@@ -7,6 +7,7 @@ require 'savon'
 
 require 'e_invoice/version'
 require 'e_invoice/e_invoice'
+require 'e_invoice/invoice_party'
 require 'e_invoice/seller'
 require 'e_invoice/buyer'
 require 'e_invoice/bank_account'

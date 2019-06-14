@@ -29,7 +29,7 @@ module EInvoice
     def build_invoice(invoice)
       builder.Invoice(invoiceId: invoice.id,
                       regNumber: invoice.recipient_id_code,
-                      sellerRegnumber: invoice.seller.reg_no) do
+                      sellerRegnumber: invoice.seller.registration_number) do
         build_invoice_party_details(invoice)
         build_invoice_details(invoice)
         build_invoice_totals(invoice)
@@ -42,7 +42,17 @@ module EInvoice
       builder.InvoiceParties do
         builder.SellerParty do
           builder.Name invoice.seller.name
-          builder.RegNumber invoice.seller.reg_no
+          builder.RegNumber invoice.seller.registration_number
+          builder.VATRegNumber invoice.seller.vat_number
+          builder.ContactData do
+            builder.LegalAddress do
+              builder.PostalAddress1 invoice.seller.legal_address.line1
+              builder.PostalAddress2 invoice.seller.legal_address.line2
+              builder.City invoice.seller.legal_address.city
+              builder.PostalCode invoice.seller.legal_address.postal_code
+              builder.Country invoice.seller.legal_address.country
+            end
+          end
         end
 
         builder.BuyerParty do

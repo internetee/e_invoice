@@ -1,6 +1,3 @@
 module EInvoice
-  class Seller
-    attr_accessor :name
-    attr_accessor :reg_no
-  end
+  class Seller < InvoiceParty; end
 end

@@ -1,10 +1,6 @@
 module EInvoice
-  class Buyer
-    attr_accessor :name
-    attr_accessor :registration_number
-    attr_accessor :vat_number
+  class Buyer < InvoiceParty
     attr_accessor :email
     attr_accessor :bank_account
-    attr_accessor :legal_address
   end
 end

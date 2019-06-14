@@ -14,7 +14,16 @@ class EInvoiceDouble
   def invoice
     seller = EInvoice::Seller.new
     seller.name = 'John Doe'
-    seller.reg_no = 'john-1234'
+    seller.registration_number = 'john-1234'
+    seller.vat_number = 'US1234'
+
+    seller_legal_address = EInvoice::Address.new
+    seller_legal_address.line1 = 'seller address line1'
+    seller_legal_address.line2 = 'seller address line2'
+    seller_legal_address.postal_code = '12345'
+    seller_legal_address.city = 'seller address city'
+    seller_legal_address.country = 'seller address country'
+    seller.legal_address = seller_legal_address
 
     buyer = EInvoice::Buyer.new
     buyer.name = 'Jane Doe'
@@ -27,11 +36,11 @@ class EInvoiceDouble
     buyer.bank_account = buyer_bank_account
 
     buyer_legal_address = EInvoice::Address.new
-    buyer_legal_address.line1 = 'line 1'
-    buyer_legal_address.line2 = 'line 2'
-    buyer_legal_address.postal_code = '12345'
-    buyer_legal_address.city = 'New York'
-    buyer_legal_address.country = 'United States'
+    buyer_legal_address.line1 = 'buyer address line1'
+    buyer_legal_address.line2 = 'buyer address line2'
+    buyer_legal_address.postal_code = '123456'
+    buyer_legal_address.city = 'buyer address city'
+    buyer_legal_address.country = 'buyer address country'
     buyer.legal_address = buyer_legal_address
 
     invoice_item = EInvoice::InvoiceItem.new.tap do |item|
@@ -100,6 +109,16 @@ class GeneratorTest < Minitest::Test
             <SellerParty>
               <Name>John Doe</Name>
               <RegNumber>john-1234</RegNumber>
+              <VATRegNumber>US1234</VATRegNumber>
+                <ContactData>
+                  <LegalAddress>
+                    <PostalAddress1>seller address line1</PostalAddress1>
+                    <PostalAddress2>seller address line2</PostalAddress2>
+                    <City>seller address city</City>
+                    <PostalCode>12345</PostalCode>
+                    <Country>seller address country</Country>
+                  </LegalAddress>
+                </ContactData>
             </SellerParty>
             <BuyerParty>
               <Name>Jane Doe</Name>
@@ -108,11 +127,11 @@ class GeneratorTest < Minitest::Test
                 <ContactData>
                   <E-mailAddress>info@buyer.test</E-mailAddress>
                   <LegalAddress>
-                    <PostalAddress1>line 1</PostalAddress1>
-                    <PostalAddress2>line 2</PostalAddress2>
-                    <City>New York</City>
-                    <PostalCode>12345</PostalCode>
-                    <Country>United States</Country>
+                    <PostalAddress1>buyer address line1</PostalAddress1>
+                    <PostalAddress2>buyer address line2</PostalAddress2>
+                    <City>buyer address city</City>
+                    <PostalCode>123456</PostalCode>
+                    <Country>buyer address country</Country>
                   </LegalAddress>
                 </ContactData>
                 <AccountInfo>
