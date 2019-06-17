@@ -91,6 +91,8 @@ module EInvoice
 
         builder.Extension(extensionId: 'eakChannel') do
           builder.InformationContent 'INTERNET_BANK'
+        end
+        builder.Extension(extensionId: 'eakChannel') do
           builder.InformationContent 'PORTAL'
         end
       end
