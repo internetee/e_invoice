@@ -88,6 +88,11 @@ module EInvoice
         builder.InvoiceNumber invoice.number
         builder.InvoiceDate invoice.date
         builder.DueDate invoice.due_date
+
+        builder.Extension(extensionId: 'eakChannel') do
+          builder.InformationContent 'INTERNET_BANK'
+          builder.InformationContent 'PORTAL'
+        end
       end
     end
 
