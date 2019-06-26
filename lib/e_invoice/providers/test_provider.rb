@@ -1,8 +1,14 @@
 module EInvoice
   module Providers
     class TestProvider
-      def deliver(_e_invoice)
+      @@deliveries = []
 
+      def self.deliveries
+        @@deliveries
+      end
+
+      def deliver(_e_invoice)
+        @@deliveries << _e_invoice
       end
     end
   end
