@@ -22,7 +22,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_sets_multiple_delivery_channels
-    delivery_channel = %i(internet_bank portal)
+    delivery_channel = %i[internet_bank portal]
 
     invoice = EInvoice::Invoice.new
     invoice.delivery_channel = delivery_channel
