@@ -70,6 +70,7 @@ class EInvoiceDouble
       invoice.subtotal = 100
       invoice.vat_amount = 20
       invoice.total = 120
+      invoice.delivery_channel = :internet_bank
     end
   end
 
@@ -145,6 +146,9 @@ class GeneratorTest < Minitest::Test
             <InvoiceNumber>invoice-1234</InvoiceNumber>
             <InvoiceDate>2010-07-06</InvoiceDate>
             <DueDate>2010-07-07</DueDate>
+            <Extension extensionId="eakChannel">
+              <InformationContent>INTERNET_BANK</InformationContent>
+            </Extension>
           </InvoiceInformation>
           <InvoiceSumGroup>
             <InvoiceSum>100.0000</InvoiceSum>

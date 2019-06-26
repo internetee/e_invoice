@@ -89,11 +89,10 @@ module EInvoice
         builder.InvoiceDate invoice.date
         builder.DueDate invoice.due_date
 
-        builder.Extension(extensionId: 'eakChannel') do
-          builder.InformationContent 'INTERNET_BANK'
-        end
-        builder.Extension(extensionId: 'eakChannel') do
-          builder.InformationContent 'PORTAL'
+        invoice.delivery_channel.each do |delivery_channel|
+          builder.Extension(extensionId: 'eakChannel') do
+            builder.InformationContent delivery_channel.to_s.upcase
+          end
         end
       end
     end
