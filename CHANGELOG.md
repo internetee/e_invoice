@@ -1,3 +1,6 @@
+26.11.2019
+* Added missing eakStatusAfterImport tag that stopped e-invoices from being automatically delivered to registrars [#3](https://github.com/internetee/e_invoice/issues/3)
+
 ### Unreleased
 
 ### 0.0.1 - 2018-09-11
