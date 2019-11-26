@@ -149,6 +149,9 @@ class GeneratorTest < Minitest::Test
             <Extension extensionId="eakChannel">
               <InformationContent>INTERNET_BANK</InformationContent>
             </Extension>
+            <Extension extensionId=\"eakStatusAfterImport\">
+              <InformationContent>SENT</InformationContent>
+            </Extension>
           </InvoiceInformation>
           <InvoiceSumGroup>
             <InvoiceSum>100.0000</InvoiceSum>

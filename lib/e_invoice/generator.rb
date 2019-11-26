@@ -94,6 +94,9 @@ module EInvoice
             builder.InformationContent delivery_channel.to_s.upcase
           end
         end
+        builder.Extension(extensionId: 'eakStatusAfterImport') do
+          builder.InformationContent 'SENT'
+        end
       end
     end
 
