@@ -105,7 +105,7 @@ class GeneratorTest < Minitest::Test
           <FileId>id1234</FileId>
           <Version>1.2</Version>
         </Header>
-        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234">
+        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234" serviceId="1234">
           <InvoiceParties>
             <SellerParty>
               <Name>John Doe</Name>
@@ -144,6 +144,7 @@ class GeneratorTest < Minitest::Test
             <Type type="DEB"/>
             <DocumentName>ARVE</DocumentName>
             <InvoiceNumber>invoice-1234</InvoiceNumber>
+            <PaymentReferenceNumber>1234</PaymentReferenceNumber>
             <InvoiceDate>2010-07-06</InvoiceDate>
             <DueDate>2010-07-07</DueDate>
             <Extension extensionId="eakChannel">
