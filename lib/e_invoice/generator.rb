@@ -29,7 +29,8 @@ module EInvoice
     def build_invoice(invoice)
       builder.Invoice(invoiceId: invoice.id,
                       regNumber: invoice.recipient_id_code,
-                      sellerRegnumber: invoice.seller.registration_number) do
+                      sellerRegnumber: invoice.seller.registration_number,
+                      serviceId: invoice.reference_number) do
         build_invoice_party_details(invoice)
         build_invoice_details(invoice)
         build_invoice_totals(invoice)
@@ -86,6 +87,7 @@ module EInvoice
         builder.Type(type: 'DEB')
         builder.DocumentName 'ARVE'
         builder.InvoiceNumber invoice.number
+        builder.PaymentReferenceNumber invoice.reference_number
         builder.InvoiceDate invoice.date
         builder.DueDate invoice.due_date
 
@@ -113,8 +115,6 @@ module EInvoice
       builder.PaymentInfo do
         builder.Currency invoice.currency
         builder.PaymentRefId invoice.reference_number
-        builder.PaymentReferenceNumber invoice.reference_number
-        builder.ServiceId invoice.reference_number
         builder.PaymentDescription invoice.number
         builder.Payable 'YES'
         builder.PayDueDate invoice.due_date
