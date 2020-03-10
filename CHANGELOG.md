@@ -1,3 +1,6 @@
+10.03.2020
+* Bumped bundler to 1.17 and rake to 12.3 [#9](https://github.com/internetee/e_invoice/pull/9)
+
 18.12.2019
 * Added missing PaymentReferenceNumber & ServiceID elements that prevented registrars from setting up standing payment orders [#6](https://github.com/internetee/e_invoice/issues/6)
 
