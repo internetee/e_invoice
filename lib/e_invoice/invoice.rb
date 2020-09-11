@@ -11,6 +11,7 @@ module EInvoice
     attr_accessor :recipient_id_code
     attr_accessor :reference_number
     attr_accessor :due_date
+    attr_accessor :payable
     attr_accessor :payer_name
     attr_accessor :beneficiary_name
     attr_accessor :beneficiary_account_number

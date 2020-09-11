@@ -116,7 +116,7 @@ module EInvoice
         builder.Currency invoice.currency
         builder.PaymentRefId invoice.reference_number
         builder.PaymentDescription invoice.number
-        builder.Payable 'YES'
+        builder.Payable invoice.payable == false ? 'NO' : 'YES'
         builder.PayDueDate invoice.due_date
         builder.PaymentTotalSum format_decimal(invoice.total)
         builder.PayerName invoice.payer_name

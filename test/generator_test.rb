@@ -63,6 +63,7 @@ class EInvoiceDouble
       invoice.recipient_id_code = 'recipient-1234'
       invoice.reference_number = '1234'
       invoice.due_date = Date.parse('2010-07-07')
+      invoice.payable = true
       invoice.beneficiary_name = 'Acme Ltd'
       invoice.beneficiary_account_number = 'GB33BUKB20201555555556'
       invoice.payer_name = 'John Smith'
