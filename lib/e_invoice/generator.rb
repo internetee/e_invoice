@@ -119,7 +119,7 @@ module EInvoice
         builder.PaymentDescription invoice.number
         builder.Payable invoice.payable == false ? 'NO' : 'YES'
         builder.PayDueDate invoice.due_date
-        builder.PaymentTotalSum invoice.payable == false ? 0 : format_decimal(invoice.total)
+        builder.PaymentTotalSum format_decimal(invoice.payable == false ? 0 : invoice.total)
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
         builder.PayToAccount invoice.beneficiary_account_number

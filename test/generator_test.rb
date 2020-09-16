@@ -7,11 +7,15 @@ class EInvoiceDouble
     Date.parse('2010-07-05')
   end
 
+  def initialize(payable: true)
+    @payable = payable == true ? true : false
+  end
+
   def id
     'id1234'
   end
 
-  def invoice
+  def invoice(payable: @payable)
     seller = EInvoice::Seller.new
     seller.name = 'John Doe'
     seller.registration_number = 'john-1234'
@@ -63,7 +67,7 @@ class EInvoiceDouble
       invoice.recipient_id_code = 'recipient-1234'
       invoice.reference_number = '1234'
       invoice.due_date = Date.parse('2010-07-07')
-      invoice.payable = true
+      invoice.payable = @payable
       invoice.beneficiary_name = 'Acme Ltd'
       invoice.beneficiary_account_number = 'GB33BUKB20201555555556'
       invoice.payer_name = 'John Smith'
@@ -205,6 +209,120 @@ class GeneratorTest < Minitest::Test
       </E_Invoice>
     XML
     actual_xml = Nokogiri::XML(@generator.generate(EInvoiceDouble.new)) { |config| config.noblanks }
+                   .to_xml
+
+    expected_xml = Nokogiri::XML(expected_xml) { |config| config.noblanks }.to_xml
+    assert_equal expected_xml, actual_xml
+  end
+
+  def test_generates_prepaid_e_invoice_xml
+    expected_xml = <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <E_Invoice xsi:noNamespaceSchemaLocation="e-invoice_ver1.2.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <Header>
+          <Date>2010-07-05</Date>
+          <FileId>id1234</FileId>
+          <Version>1.2</Version>
+        </Header>
+        <Invoice invoiceId="invoice-1234" regNumber="recipient-1234" sellerRegnumber="john-1234" serviceId="1234">
+          <InvoiceParties>
+            <SellerParty>
+              <Name>John Doe</Name>
+              <RegNumber>john-1234</RegNumber>
+              <VATRegNumber>US1234</VATRegNumber>
+                <ContactData>
+                  <LegalAddress>
+                    <PostalAddress1>seller address line1</PostalAddress1>
+                    <PostalAddress2>seller address line2</PostalAddress2>
+                    <City>seller address city</City>
+                    <PostalCode>12345</PostalCode>
+                    <Country>seller address country</Country>
+                  </LegalAddress>
+                </ContactData>
+            </SellerParty>
+            <BuyerParty>
+              <Name>Jane Doe</Name>
+              <RegNumber>1234</RegNumber>
+              <VATRegNumber>US1234</VATRegNumber>
+                <ContactData>
+                  <E-mailAddress>info@buyer.test</E-mailAddress>
+                  <LegalAddress>
+                    <PostalAddress1>buyer address line1</PostalAddress1>
+                    <PostalAddress2>buyer address line2</PostalAddress2>
+                    <City>buyer address city</City>
+                    <PostalCode>123456</PostalCode>
+                    <Country>buyer address country</Country>
+                  </LegalAddress>
+                </ContactData>
+                <AccountInfo>
+                  <AccountNumber>GB33BUKB20201555555555</AccountNumber>
+                </AccountInfo>
+            </BuyerParty>
+          </InvoiceParties>
+          <InvoiceInformation>
+            <Type type="DEB"/>
+            <DocumentName>ARVE</DocumentName>
+            <InvoiceNumber>invoice-1234</InvoiceNumber>
+            <PaymentReferenceNumber>1234</PaymentReferenceNumber>
+            <InvoiceDate>2010-07-06</InvoiceDate>
+            <DueDate>2010-07-07</DueDate>
+            <Extension extensionId="eakChannel">
+              <InformationContent>INTERNET_BANK</InformationContent>
+            </Extension>
+            <Extension extensionId=\"eakStatusAfterImport\">
+              <InformationContent>SENT</InformationContent>
+            </Extension>
+          </InvoiceInformation>
+          <InvoiceSumGroup>
+            <InvoiceSum>100.0000</InvoiceSum>
+            <TotalVATSum>20.00</TotalSum>
+            <TotalSum>120.00</TotalSum>
+            <TotalToPay>0.00</TotalToPay>
+            <Currency>EUR</Currency>
+          </InvoiceSumGroup>
+          <InvoiceItem>
+            <InvoiceItemGroup>
+              <ItemEntry>
+                <Description>acme services</Description>
+                <ItemDetailInfo>
+                  <ItemUnit>pc</ItemUnit>
+                  <ItemAmount>1.0000</ItemAmount>
+                  <ItemPrice>100.0000</ItemPrice>
+                </ItemDetailInfo>
+                <ItemSum>100.0000</ItemSum>
+                <VAT vatId="TAX">
+                  <VATRate>20.00</VATRate>
+                  <VATSum>20.0000</VATSum>
+                </VAT>
+                <ItemTotal>120.0000</ItemTotal>
+              </ItemEntry>
+            </InvoiceItemGroup>
+            <InvoiceItemTotalGroup>
+              <InvoiceItemTotalAmount>120.0000</InvoiceItemTotalAmount>
+              <InvoiceItemTotalSum>100.0000</InvoiceItemTotalSum>
+              <InvoiceItemTotal>120.0000</InvoiceItemTotal>
+            </InvoiceItemTotalGroup>
+          </InvoiceItem>
+          <PaymentInfo>
+            <Currency>EUR</Currency>
+            <PaymentRefId>1234</PaymentRefId>
+            <PaymentDescription>invoice-1234</PaymentDescription>
+            <Payable>NO</Payable>
+            <PayDueDate>2010-07-07</PayDueDate>
+            <PaymentTotalSum>0.00</PaymentTotalSum>
+            <PayerName>John Smith</PayerName>
+            <PaymentId>invoice-1234</PaymentId>
+            <PayToAccount>GB33BUKB20201555555556</PayToAccount>
+            <PayToName>Acme Ltd</PayToName>
+          </PaymentInfo>
+        </Invoice>
+        <Footer>
+          <TotalNumberInvoices>1</TotalNumberInvoices>
+          <TotalAmount>120.00</TotalAmount>
+        </Footer>
+      </E_Invoice>
+    XML
+    actual_xml = Nokogiri::XML(@generator.generate(EInvoiceDouble.new(payable: false))) { |config| config.noblanks }
                    .to_xml
 
     expected_xml = Nokogiri::XML(expected_xml) { |config| config.noblanks }.to_xml
