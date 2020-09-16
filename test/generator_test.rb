@@ -159,6 +159,7 @@ class GeneratorTest < Minitest::Test
             <InvoiceSum>100.0000</InvoiceSum>
             <TotalVATSum>20.00</TotalSum>
             <TotalSum>120.00</TotalSum>
+            <TotalToPay>120.00</TotalToPay>
             <Currency>EUR</Currency>
           </InvoiceSumGroup>
           <InvoiceItem>

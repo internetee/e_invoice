@@ -107,6 +107,7 @@ module EInvoice
         builder.InvoiceSum format_decimal(invoice.subtotal, scale: 4)
         builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
+        builder.TotalToPay format_decimal(invoice.payable == false ? 0 : invoice.total)
         builder.Currency invoice.currency
       end
     end
