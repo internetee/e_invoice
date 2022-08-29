@@ -50,6 +50,6 @@ class OmnivaProviderTest < Minitest::Test
   private
 
   def main_request_body
-    '<?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://e-arvetekeskus.eu/erp" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\" xmlns:sch1=\"http://www.pangaliit.ee/arveldused/e-arve/\" xmlns:sch0=\"http://e-arvetekeskus.eu/erp\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\"><env:Body><tns:EInvoiceRequest authPhrase="test-password"><E_Invoice/></tns:EInvoiceRequest></env:Body></env:Envelope>'
+    '<?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://e-arvetekeskus.eu/erp" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch1="http://www.pangaliit.ee/arveldused/e-arve/" xmlns:sch0="http://e-arvetekeskus.eu/erp" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"><env:Body><tns:EInvoiceRequest authPhrase="test-password"><E_Invoice/></tns:EInvoiceRequest></env:Body></env:Envelope>'
   end
 end
