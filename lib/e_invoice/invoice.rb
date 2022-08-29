@@ -1,24 +1,14 @@
 module EInvoice
   class Invoice
-    attr_accessor :seller
-    attr_accessor :buyer
-    attr_accessor :items
+    attr_accessor :seller, :buyer, :items, :number,
+                  :date, :recipient_id_code, :reference_number,
+                  :due_date, :payable, :payer_name,
+                  :beneficiary_name, :beneficiary_account_number,
+                  :subtotal, :vat_amount, :total, :currency,
+                  :monthly_invoice
 
-    attr_accessor :number
     alias_method :id, :number
 
-    attr_accessor :date
-    attr_accessor :recipient_id_code
-    attr_accessor :reference_number
-    attr_accessor :due_date
-    attr_accessor :payable
-    attr_accessor :payer_name
-    attr_accessor :beneficiary_name
-    attr_accessor :beneficiary_account_number
-    attr_accessor :subtotal
-    attr_accessor :vat_amount
-    attr_accessor :total
-    attr_accessor :currency
     attr_reader :delivery_channel
 
     def self.valid_delivery_channels

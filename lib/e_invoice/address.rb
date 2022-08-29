@@ -1,9 +1,5 @@
 module EInvoice
   class Address
-    attr_accessor :line1
-    attr_accessor :line2
-    attr_accessor :postal_code
-    attr_accessor :city
-    attr_accessor :country
+    attr_accessor :line1, :line2, :postal_code, :city, :country
   end
 end

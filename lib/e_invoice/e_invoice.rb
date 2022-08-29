@@ -1,8 +1,6 @@
 module EInvoice
   class EInvoice
-    attr_reader :date
-    attr_reader :invoice
-    attr_reader :id
+    attr_reader :date, :invoice, :id
 
     def initialize(date:, invoice:)
       @date = date

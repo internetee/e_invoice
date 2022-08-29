@@ -34,7 +34,11 @@ module EInvoice
         build_invoice_party_details(invoice)
         build_invoice_details(invoice)
         build_invoice_totals(invoice)
-        build_invoice_items(invoice.items)
+        if invoice.monthly_invoice
+          build_monthly_invoice_items(invoice.items)
+        else
+          build_invoice_items(invoice.items)
+        end
         build_invoice_payment_details(invoice)
       end
     end
@@ -156,6 +160,35 @@ module EInvoice
             builder.InvoiceItemTotalSum format_decimal(item.subtotal, scale: 4)
 
             builder.InvoiceItemTotal format_decimal(item.total, scale: 4)
+          end
+        end
+      end
+    end
+
+    def build_monthly_invoice_items(items)
+      builder.InvoiceItem do
+        builder.InvoiceItemGroup do
+          items.each do |item|
+            builder.ItemEntry do
+              builder.Description item.description
+
+              if item.quantity && item.price
+                builder.ItemDetailInfo do
+                  builder.ItemUnit item.unit
+                  builder.ItemAmount format_decimal(item.quantity, scale: 4)
+                  builder.ItemPrice format_decimal(item.price, scale: 4)
+                end
+
+                builder.ItemSum format_decimal(item.subtotal, scale: 4)
+
+                builder.VAT(vatId: 'TAX') do
+                  builder.VATRate format_decimal(item.vat_rate)
+                  builder.VATSum format_decimal(item.vat_amount, scale: 4)
+                end
+
+                builder.ItemTotal format_decimal(item.total, scale: 4)
+              end
+            end
           end
         end
       end

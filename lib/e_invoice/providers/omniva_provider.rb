@@ -1,8 +1,7 @@
 module EInvoice
   module Providers
     class OmnivaProvider
-      attr_reader :config
-      attr_reader :soap_client
+      attr_reader :config, :soap_client
 
       def initialize(provider_config_user)
         @config = OpenStruct.new(provider_config.merge(provider_config_user))
