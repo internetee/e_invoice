@@ -19,11 +19,11 @@ class OmnivaProviderTest < Minitest::Test
   def test_sends_normalized_e_invoice
     response_body = File.read('test/fixtures/omniva_wsdl.xml')
     wsdl_request = stub_request(:get, 'https://provider.test/wsdl.xml')
-                     .to_return(status: 200, body: response_body)
+                   .to_return(status: 200, body: response_body)
 
     main_request = stub_request(:post, 'https://provider.test/endpoint')
-                     .with(body: main_request_body)
-                     .to_return(status: 200, body: '')
+                   .with(body: main_request_body)
+                   .to_return(status: 200, body: '')
 
     provider = EInvoice::Providers::OmnivaProvider.new(wsdl_production: 'https://provider.test/wsdl.xml',
                                                        soap_operation: 'e_invoice',
@@ -50,6 +50,6 @@ class OmnivaProviderTest < Minitest::Test
   private
 
   def main_request_body
-    '<?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://e-arvetekeskus.eu/erp" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ins0="http://www.pangaliit.ee/arveldused/e-arve/"><env:Body><tns:EInvoiceRequest authPhrase="test-password"><E_Invoice/></tns:EInvoiceRequest></env:Body></env:Envelope>'
+    '<?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://e-arvetekeskus.eu/erp" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl=\"http://schemas.xmlsoap.org/wsdl/\" xmlns:sch1=\"http://www.pangaliit.ee/arveldused/e-arve/\" xmlns:sch0=\"http://e-arvetekeskus.eu/erp\" xmlns:soap=\"http://schemas.xmlsoap.org/wsdl/soap/\"><env:Body><tns:EInvoiceRequest authPhrase="test-password"><E_Invoice/></tns:EInvoiceRequest></env:Body></env:Envelope>'
   end
 end
