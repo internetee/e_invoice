@@ -1,3 +1,6 @@
+29.08.2022
+* Added support for monthly invoices 
+
 10.03.2020
 * Bumped bundler to 1.17 and rake to 12.3 [#9](https://github.com/internetee/e_invoice/pull/9)
 
