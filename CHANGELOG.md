@@ -1,5 +1,7 @@
 30.08.2022
+* Added invoice name attribute for monthly invoices [#30](https://github.com/internetee/e_invoice/pull/30)
 * Added product code to monthly invoice items [#29](https://github.com/internetee/e_invoice/pull/29)
+
 
 29.08.2022
 * Added support for monthly invoices [#28](https://github.com/internetee/e_invoice/pull/28)
