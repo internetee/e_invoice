@@ -170,24 +170,25 @@ module EInvoice
         builder.InvoiceItemGroup do
           items.each do |item|
             builder.ItemEntry do
+              builder.SellerProductId item.product_id if item.product_id
               builder.Description item.description
 
-              if item.quantity && item.price
-                builder.ItemDetailInfo do
+              builder.ItemDetailInfo do
+                if item.quantity && item.price
                   builder.ItemUnit item.unit
                   builder.ItemAmount format_decimal(item.quantity, scale: 4)
                   builder.ItemPrice format_decimal(item.price, scale: 4)
                 end
-
-                builder.ItemSum format_decimal(item.subtotal, scale: 4)
-
-                builder.VAT(vatId: 'TAX') do
-                  builder.VATRate format_decimal(item.vat_rate)
-                  builder.VATSum format_decimal(item.vat_amount, scale: 4)
-                end
-
-                builder.ItemTotal format_decimal(item.total, scale: 4)
               end
+
+              builder.ItemSum format_decimal(item.subtotal || 0, scale: 4)
+
+              builder.VAT(vatId: 'TAX') do
+                builder.VATRate format_decimal(item.vat_rate)
+                builder.VATSum format_decimal(item.vat_amount || 0, scale: 4)
+              end
+
+              builder.ItemTotal format_decimal(item.total || 0, scale: 4)
             end
           end
         end
