@@ -1,3 +1,6 @@
+30.08.2022
+* Added product code to monthly invoice items
+
 29.08.2022
 * Added support for monthly invoices [#28](https://github.com/internetee/e_invoice/pull/28)
 
