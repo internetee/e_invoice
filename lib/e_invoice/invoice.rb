@@ -1,6 +1,6 @@
 module EInvoice
   class Invoice
-    attr_accessor :seller, :buyer, :items, :number,
+    attr_accessor :seller, :buyer, :items, :number, :name,
                   :date, :recipient_id_code, :reference_number,
                   :due_date, :payable, :payer_name,
                   :beneficiary_name, :beneficiary_account_number,

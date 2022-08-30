@@ -89,7 +89,7 @@ module EInvoice
     def build_invoice_details(invoice)
       builder.InvoiceInformation do
         builder.Type(type: 'DEB')
-        builder.DocumentName 'ARVE'
+        builder.DocumentName invoice.name || 'ARVE'
         builder.InvoiceNumber invoice.number
         builder.PaymentReferenceNumber invoice.reference_number
         builder.InvoiceDate invoice.date
