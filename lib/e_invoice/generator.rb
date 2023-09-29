@@ -132,8 +132,8 @@ module EInvoice
     end
 
     def build_invoice_items(items)
-      items.each do |item|
-        builder.InvoiceItem do
+      builder.InvoiceItem do
+        items.each do |item|
           builder.InvoiceItemGroup do
             builder.ItemEntry do
               builder.Description item.description
@@ -154,13 +154,13 @@ module EInvoice
               builder.ItemTotal format_decimal(item.total, scale: 4)
             end
           end
+        end
 
-          builder.InvoiceItemTotalGroup do
-            builder.InvoiceItemTotalAmount format_decimal(item.total, scale: 4)
-            builder.InvoiceItemTotalSum format_decimal(item.subtotal, scale: 4)
+        builder.InvoiceItemTotalGroup do
+          builder.InvoiceItemTotalAmount format_decimal(item.total, scale: 4)
+          builder.InvoiceItemTotalSum format_decimal(item.subtotal, scale: 4)
 
-            builder.InvoiceItemTotal format_decimal(item.total, scale: 4)
-          end
+          builder.InvoiceItemTotal format_decimal(item.total, scale: 4)
         end
       end
     end
