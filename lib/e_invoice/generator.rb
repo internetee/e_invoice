@@ -112,6 +112,11 @@ module EInvoice
         builder.InvoiceSum format_decimal(invoice.subtotal, scale: 4)
         builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
+        if invoice.payable == false
+          builder.TotalToPay format_decimal(0)
+        else
+          builder.TotalToPay format_decimal(invoice.total_to_pay.presence || invoice.total)
+        end
         builder.TotalToPay format_decimal(invoice.payable == false ? 0 : invoice.total_to_pay)
         builder.Currency invoice.currency
       end
@@ -141,7 +146,11 @@ module EInvoice
         builder.PaymentDescription invoice.number
         builder.Payable invoice.payable == false ? 'NO' : 'YES'
         builder.PayDueDate invoice.due_date
-        builder.PaymentTotalSum format_decimal(invoice.payable == false ? 0 : invoice.total_to_pay)
+        if invoice.payable == false
+          builder.PaymentTotalSum format_decimal(0)
+        else
+          builder.PaymentTotalSum format_decimal(invoice.total_to_pay.presence || invoice.total)
+        end
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
         builder.PayToAccount invoice.beneficiary_account_number
