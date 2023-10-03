@@ -119,12 +119,19 @@ module EInvoice
 
     def build_invoice_balance(invoice)
       builder.Balance do
-        builder.BalanceDate invoice.balance_date if invoice.balance_date
-        builder.BalanceBegin format_decimal(invoice.balance_begin) if invoice.balance_begin
-        builder.Inbound format_decimal(invoice.inbound) if invoice.inbound
-        builder.Outbound format_decimal(invoice.outbound) if invoice.outbound
-        builder.BalanceEnd format_decimal(invoice.balance_end) if invoice.balance_end
+        build_element('BalanceDate', invoice.balance_date)
+        build_element('BalanceBegin', invoice.balance_begin, :format_decimal)
+        build_element('Inbound', invoice.inbound, :format_decimal)
+        build_element('Outbound', invoice.outbound, :format_decimal)
+        build_element('BalanceEnd', invoice.balance_end, :format_decimal)
       end
+    end
+
+    def build_element(name, value, format_method = nil)
+      return unless value
+
+      formatted_value = format_method ? send(format_method, value) : value
+      builder.__send__(name, formatted_value)
     end
 
     def build_invoice_payment_details(invoice)
