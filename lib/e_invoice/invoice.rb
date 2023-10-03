@@ -4,8 +4,9 @@ module EInvoice
                   :date, :recipient_id_code, :reference_number,
                   :due_date, :payable, :payer_name,
                   :beneficiary_name, :beneficiary_account_number,
-                  :subtotal, :vat_amount, :total, :currency,
-                  :monthly_invoice
+                  :subtotal, :vat_amount, :total, :total_to_pay, :currency,
+                  :balance_date, :balance_begin, :inbound, :outbound,
+                  :balance_end, :monthly_invoice
 
     alias_method :id, :number
 

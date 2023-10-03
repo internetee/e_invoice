@@ -108,12 +108,34 @@ module EInvoice
 
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
+        build_invoice_balance(invoice)
         builder.InvoiceSum format_decimal(invoice.subtotal, scale: 4)
         builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
-        builder.TotalToPay format_decimal(invoice.payable == false ? 0 : invoice.total)
+        if invoice.payable == false
+          builder.TotalToPay format_decimal(0)
+        else
+          builder.TotalToPay format_decimal(invoice.total_to_pay || invoice.total)
+        end
         builder.Currency invoice.currency
       end
+    end
+
+    def build_invoice_balance(invoice)
+      builder.Balance do
+        build_element('BalanceDate', invoice.balance_date)
+        build_element('BalanceBegin', invoice.balance_begin, :format_decimal)
+        build_element('Inbound', invoice.inbound, :format_decimal)
+        build_element('Outbound', invoice.outbound, :format_decimal)
+        build_element('BalanceEnd', invoice.balance_end, :format_decimal)
+      end
+    end
+
+    def build_element(name, value, format_method = nil)
+      return unless value
+
+      formatted_value = format_method ? send(format_method, value) : value
+      builder.__send__(name, formatted_value)
     end
 
     def build_invoice_payment_details(invoice)
@@ -123,7 +145,11 @@ module EInvoice
         builder.PaymentDescription invoice.number
         builder.Payable invoice.payable == false ? 'NO' : 'YES'
         builder.PayDueDate invoice.due_date
-        builder.PaymentTotalSum format_decimal(invoice.payable == false ? 0 : invoice.total)
+        if invoice.payable == false
+          builder.PaymentTotalSum format_decimal(0)
+        else
+          builder.PaymentTotalSum format_decimal(invoice.total_to_pay || invoice.total)
+        end
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
         builder.PayToAccount invoice.beneficiary_account_number
@@ -203,7 +229,7 @@ module EInvoice
     end
 
     def format_decimal(decimal, scale: 2)
-      format("%.#{scale}f", decimal)
+      format("%.#{scale}f", decimal) if decimal
     end
   end
 end
