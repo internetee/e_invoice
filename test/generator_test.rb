@@ -160,6 +160,7 @@ class GeneratorTest < Minitest::Test
             </Extension>
           </InvoiceInformation>
           <InvoiceSumGroup>
+            <Balance/>
             <InvoiceSum>100.0000</InvoiceSum>
             <TotalVATSum>20.00</TotalSum>
             <TotalSum>120.00</TotalSum>
@@ -274,6 +275,7 @@ class GeneratorTest < Minitest::Test
             </Extension>
           </InvoiceInformation>
           <InvoiceSumGroup>
+            <Balance/>
             <InvoiceSum>100.0000</InvoiceSum>
             <TotalVATSum>20.00</TotalSum>
             <TotalSum>120.00</TotalSum>

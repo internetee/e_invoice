@@ -108,18 +108,22 @@ module EInvoice
 
     def build_invoice_totals(invoice)
       builder.InvoiceSumGroup do
-        builder.Balance do
-          builder.BalanceDate invoice.balance_date if invoice.balance_date
-          builder.BalanceBegin format_decimal(invoice.balance_begin) if invoice.balance_begin
-          builder.Inbound format_decimal(invoice.inbound) if invoice.inbound
-          builder.Outbound format_decimal(invoice.outbound) if invoice.outbound
-          builder.BalanceEnd format_decimal(invoice.balance_end) if invoice.balance_end
-        end
+        build_invoice_balance(invoice)
         builder.InvoiceSum format_decimal(invoice.subtotal, scale: 4)
         builder.TotalVATSum format_decimal(invoice.vat_amount)
         builder.TotalSum format_decimal(invoice.total)
         builder.TotalToPay format_decimal(invoice.payable == false ? 0 : invoice.total_to_pay)
         builder.Currency invoice.currency
+      end
+    end
+
+    def build_invoice_balance(invoice)
+      builder.Balance do
+        builder.BalanceDate invoice.balance_date if invoice.balance_date
+        builder.BalanceBegin format_decimal(invoice.balance_begin) if invoice.balance_begin
+        builder.Inbound format_decimal(invoice.inbound) if invoice.inbound
+        builder.Outbound format_decimal(invoice.outbound) if invoice.outbound
+        builder.BalanceEnd format_decimal(invoice.balance_end) if invoice.balance_end
       end
     end
 
