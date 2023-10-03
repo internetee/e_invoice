@@ -58,6 +58,7 @@ jobs:
         gem install nokogiri -v '~> 1.11.3'
         gem install savon
         gem install webmock
+        gem install mocha
         gem install minitest -v '~> 5.14'
         bundle install
         rake
