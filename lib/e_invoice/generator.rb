@@ -115,7 +115,7 @@ module EInvoice
         if invoice.payable == false
           builder.TotalToPay format_decimal(0)
         else
-          builder.TotalToPay format_decimal(invoice.total_to_pay.presence || invoice.total)
+          builder.TotalToPay format_decimal(invoice.total_to_pay || invoice.total)
         end
         builder.Currency invoice.currency
       end
@@ -148,7 +148,7 @@ module EInvoice
         if invoice.payable == false
           builder.PaymentTotalSum format_decimal(0)
         else
-          builder.PaymentTotalSum format_decimal(invoice.total_to_pay.presence || invoice.total)
+          builder.PaymentTotalSum format_decimal(invoice.total_to_pay || invoice.total)
         end
         builder.PayerName invoice.payer_name
         builder.PaymentId invoice.number
