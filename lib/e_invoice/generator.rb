@@ -117,7 +117,6 @@ module EInvoice
         else
           builder.TotalToPay format_decimal(invoice.total_to_pay.presence || invoice.total)
         end
-        builder.TotalToPay format_decimal(invoice.payable == false ? 0 : invoice.total_to_pay)
         builder.Currency invoice.currency
       end
     end
