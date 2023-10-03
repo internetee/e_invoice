@@ -210,7 +210,7 @@ module EInvoice
     end
 
     def format_decimal(decimal, scale: 2)
-      format("%.#{scale}f", decimal)
+      format("%.#{scale}f", decimal) if decimal
     end
   end
 end

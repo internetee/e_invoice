@@ -1,5 +1,5 @@
 03.10.2023
-* Added Balance element to InvoiceSumGroup
+* Added Balance element to InvoiceSumGroup [#41] (https://github.com/internetee/e_invoice/pull/41)
 
 26.09.2023
 * Updated wsdl test address [#36](https://github.com/internetee/e_invoice/pull/36)
