@@ -5,8 +5,8 @@ require 'e_invoice/version'
 Gem::Specification.new do |spec|
   spec.name = 'e_invoice'
   spec.version = EInvoice::VERSION
-  spec.authors = ['Artur Beljajev', 'Maciej Szlosarczyk', 'Sergei Tsõganov']
-  spec.email = ['artur.beljajev@internet.ee', 'maciej.szlosarczyk@internet.ee', 'sergei.tsoganov@internet.ee']
+  spec.authors = ['Artur Beljajev', 'Maciej Szlosarczyk', 'Sergei Tsõganov', 'Oleg Hasjanov']
+  spec.email = ['artur.beljajev@internet.ee', 'maciej.szlosarczyk@internet.ee', 'sergei.tsoganov@internet.ee', 'oleg.hasjanov@internet.ee']
   spec.summary = 'Ruby API for generating and delivering Estonian e-invoices'
   spec.homepage = 'https://github.com/internetee/e_invoice'
   spec.license = 'MIT'
