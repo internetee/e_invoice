@@ -81,7 +81,7 @@ jobs:
       - name: Run qlty.sh analysis
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty check --no
+          qlty check
 
       - name: Upload coverage to qlty.sh
         uses: qltysh/qlty-action/coverage@v1
