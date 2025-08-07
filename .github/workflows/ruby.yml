@@ -76,12 +76,12 @@ jobs:
       - name: Initialize qlty.sh
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty init
+          qlty init --non-interactive
 
       - name: Run qlty.sh analysis
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty check
+          qlty check --non-interactive
 
       - name: Upload coverage to qlty.sh
         uses: qltysh/qlty-action/coverage@v1
