@@ -25,35 +25,17 @@ jobs:
         bundle env
         head -n1 $(which bundle)
 
-    - name: Set ENV for codeclimate (pull_request)
+    - name: Setup qlty.sh
       run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
-          echo "GIT_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
-          echo "GIT_COMMIT_SHA=$(git rev-parse origin/$GITHUB_HEAD_REF)" >> $GITHUB_ENV
-      if: github.event_name == 'pull_request'
-
-    - name: Set ENV for codeclimate (push)
-      run: |
-          echo "GIT_BRANCH=$GITHUB_REF" >> $GITHUB_ENV
-          echo "GIT_COMMIT_SHA=$GITHUB_SHA" >> $GITHUB_ENV
-      if: github.event_name == 'push'
-
-    - name: Prepare CodeClimate
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      run: |
-        curl -LSs 'https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64' >./cc-test-reporter;
-        chmod +x ./cc-test-reporter
-        ./cc-test-reporter before-build
+        curl -sSL https://qlty.sh/install.sh | bash
+        qlty --version
 
     - name: Run Tests
       env:
         RAILS_ENV: test
-        COVERAGE: true
         DISABLE_SPRING: 1
       run: |
         gem install bundler -v '>= 2.2.10'
-        gem install simplecov -v '<= 0.17.1'
         gem install builder
         gem install nokogiri -v '~> 1.11.3'
         gem install savon
@@ -62,40 +44,44 @@ jobs:
         gem install minitest -v '~> 5.14'
         bundle install
         rake
-    - name: Save coverage
-      run: ./cc-test-reporter format-coverage --output coverage/codeclimate.${{ matrix.ruby }}.json
+
+    - name: Run qlty.sh analysis
+      run: |
+        qlty analyze --format json --output qlty-report.json
 
     - uses: actions/upload-artifact@v3.1.3
       with:
-        name: coverage-${{ matrix.ruby }}
-        path: coverage/codeclimate.${{ matrix.ruby }}.json
+        name: qlty-report-${{ matrix.ruby }}
+        path: qlty-report.json
 
-  upload_coverage:
+  quality_check:
     strategy:
       matrix:
         os: [ ubuntu-20.04 ]
         ruby: [ '2.7' ]
     runs-on: ubuntu-20.04
-    env:
-      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
-
     needs: test
 
     steps:
-      - name: Download test coverage reporter
-        run: curl -L $CC_TEST_REPORTER_URL > cc-test-reporter
-
-      - name: Give test coverage reporter executable permissions
-        run: chmod +x cc-test-reporter
+      - uses: actions/checkout@v4
+      
+      - name: Setup qlty.sh
+        run: |
+          curl -sSL https://qlty.sh/install.sh | bash
+          qlty --version
 
       - uses: actions/download-artifact@v3.0.2
         with:
-          name: coverage-${{ matrix.ruby }}
-          path: coverage
+          name: qlty-report-${{ matrix.ruby }}
+          path: reports
 
-      - name: Aggregate & upload results to Code Climate
+      - name: Process qlty.sh results
         run: |
-          ./cc-test-reporter sum-coverage coverage/codeclimate.*.json
-          ./cc-test-reporter upload-coverage
+          if [ -f reports/qlty-report.json ]; then
+            echo "Quality analysis completed"
+            cat reports/qlty-report.json
+          else
+            echo "No quality report found"
+            exit 1
+          fi
 

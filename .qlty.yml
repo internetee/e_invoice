@@ -1,0 +1,44 @@
+version: "1.0"
+languages:
+  - ruby
+
+# RuboCop configuration
+rubocop:
+  enabled: true
+  config_file: "https://raw.githubusercontent.com/internetee/style-guide/master/ruby/.rubocop.yml"
+  version: "~> 1.0"
+
+# Duplication detection
+duplication:
+  enabled: true
+  threshold: 5
+  languages:
+    - ruby
+
+# Exclude patterns
+exclude_patterns:
+  - "bin/"
+  - "test/"
+  - "vendor/"
+  - "node_modules/"
+  - "*.gem"
+
+# Additional quality checks
+checks:
+  - name: "method_length"
+    enabled: true
+    max_length: 20
+  
+  - name: "class_length"
+    enabled: true
+    max_length: 150
+  
+  - name: "cyclomatic_complexity"
+    enabled: true
+    max_complexity: 10
+
+# Output configuration
+output:
+  format: "json"
+  file: "qlty-report.json"
+  console: true
