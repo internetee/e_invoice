@@ -20,6 +20,8 @@ jobs:
           bundle config set deployment 'true'
           bundle env
           head -n1 $(which bundle)
+      - name: Install dependencies
+        run: bundle install
       - name: Bundle Audit Check
         run: bundle exec bundle-audit check --update
 
@@ -37,6 +39,8 @@ jobs:
           bundle config set deployment 'true'
           bundle env
           head -n1 $(which bundle)
+      - name: Install dependencies
+        run: bundle install
       - name: Run Brakeman
         run: bundle exec brakeman --quiet --skip-libs --exit-on-warn --ignore-config=.brakeman-ignore
 
@@ -91,7 +95,7 @@ jobs:
       - name: Run qlty.sh analysis
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty analyze --format json --output qlty-report.json
+          qlty check --format json --output qlty-report.json
 
       - name: Upload coverage to qlty.sh
         uses: qltysh/qlty-action/coverage@v1
