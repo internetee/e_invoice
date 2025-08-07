@@ -20,10 +20,10 @@ jobs:
           bundle config set deployment 'true'
           bundle env
           head -n1 $(which bundle)
-      - name: Install dependencies
-        run: bundle install
+      - name: Install bundle-audit
+        run: gem install bundle-audit
       - name: Bundle Audit Check
-        run: bundle exec bundle-audit check --update
+        run: gem exec bundle-audit check --update
 
   brakeman:
     runs-on: ubuntu-24.04
@@ -39,10 +39,10 @@ jobs:
           bundle config set deployment 'true'
           bundle env
           head -n1 $(which bundle)
-      - name: Install dependencies
-        run: bundle install
+      - name: Install brakeman
+        run: gem install brakeman
       - name: Run Brakeman
-        run: bundle exec brakeman --quiet --skip-libs --exit-on-warn --ignore-config=.brakeman-ignore
+        run: gem exec brakeman --quiet --skip-libs --exit-on-warn --ignore-config=.brakeman-ignore
 
   test:
     strategy:
@@ -95,7 +95,7 @@ jobs:
       - name: Run qlty.sh analysis
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty check --format json --output qlty-report.json
+          qlty check --output qlty-report.json
 
       - name: Upload coverage to qlty.sh
         uses: qltysh/qlty-action/coverage@v1
