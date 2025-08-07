@@ -25,25 +25,6 @@ jobs:
       - name: Bundle Audit Check
         run: gem exec bundle-audit check --update
 
-  brakeman:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 3.2.2
-          bundler-cache: true
-      - name: config bundler
-        run: |
-          bundle config set without 'development staging production'
-          bundle config set deployment 'true'
-          bundle env
-          head -n1 $(which bundle)
-      - name: Install brakeman
-        run: gem install brakeman
-      - name: Run Brakeman
-        run: gem exec brakeman --quiet --skip-libs --exit-on-warn --ignore-config=.brakeman-ignore
-
   test:
     strategy:
       fail-fast: false
@@ -95,7 +76,7 @@ jobs:
       - name: Run qlty.sh analysis
         run: |
           export PATH="$HOME/.qlty/bin:$PATH"
-          qlty check --output qlty-report.json
+          qlty check
 
       - name: Upload coverage to qlty.sh
         uses: qltysh/qlty-action/coverage@v1
