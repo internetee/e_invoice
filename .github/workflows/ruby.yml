@@ -9,16 +9,18 @@ jobs:
   bundle_audit:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2.2
-          bundler-cache: true
       - name: config bundler
         run: |
           bundle config set deployment 'false'
           bundle env
           head -n1 $(which bundle)
+      - name: Install dependencies
+        run: |
+          bundle install --jobs 4 --retry 3
       - name: Install bundle-audit
         run: gem install bundle-audit
       - name: Bundle Audit Check
@@ -37,12 +39,11 @@ jobs:
       DISABLE_SPRING: 1
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
 
       - name: config bundler
         run: |
@@ -52,7 +53,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          bundle install
+          bundle install --jobs 4 --retry 3
 
       - name: Run Tests
         run: rake
