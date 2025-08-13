@@ -16,8 +16,7 @@ jobs:
           bundler-cache: true
       - name: config bundler
         run: |
-          bundle config set without 'development staging production'
-          bundle config set deployment 'true'
+          bundle config set deployment 'false'
           bundle env
           head -n1 $(which bundle)
       - name: Install bundle-audit
@@ -47,20 +46,12 @@ jobs:
 
       - name: config bundler
         run: |
-          bundle config set without 'development staging production'
-          bundle config set deployment 'true'
+          bundle config set deployment 'false'
           bundle env
           head -n1 $(which bundle)
 
       - name: Install dependencies
         run: |
-          gem install bundler -v '>= 2.2.10'
-          gem install builder
-          gem install nokogiri -v '~> 1.11.3'
-          gem install savon
-          gem install webmock
-          gem install mocha
-          gem install minitest -v '~> 5.14'
           bundle install
 
       - name: Run Tests
