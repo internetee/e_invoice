@@ -61,7 +61,6 @@ jobs:
           gem install webmock
           gem install mocha
           gem install minitest -v '~> 5.14'
-          gem install simplecov -v '<= 0.17.1'
           bundle install
 
       - name: Run Tests
