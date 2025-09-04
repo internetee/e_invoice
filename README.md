@@ -1,8 +1,8 @@
 # Ruby API for generating and delivering Estonian e-invoices
 
 [![Build Status](https://travis-ci.org/internetee/e_invoice.svg?branch=master)](https://travis-ci.org/internetee/e_invoice)
-[![Code Climate](https://codeclimate.com/github/internetee/e_invoice/badges/gpa.svg)](https://codeclimate.com/github/internetee/e_invoice)
-[![Test Coverage](https://codeclimate.com/github/internetee/e_invoice/badges/coverage.svg)](https://codeclimate.com/github/internetee/e_invoice/coverage)
+[![Maintainability](https://qlty.sh/gh/internetee/projects/e_invoice/maintainability.svg)](https://qlty.sh/gh/internetee/projects/e_invoice)
+[![Code Coverage](https://qlty.sh/gh/internetee/projects/e_invoice/coverage.svg)](https://qlty.sh/gh/internetee/projects/e_invoice)
 
 Implements Estonian e-invoice standard v1.2.
 
