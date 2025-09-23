@@ -94,4 +94,13 @@ jobs:
           }
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send Mattermost notification
+        if: steps.check_patch.outputs.auto_merge == 'true'
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          curl -X POST -H "Authorization: Bearer ${{ secrets.MATTERMOST_BOT_TOKEN }}" \
+                -H "Content-Type: application/json" \
+                -d "{\"channel_id\":\"${{ secrets.MATTERMOST_CHANNEL_ID }}\",\"message\":\"[${{ github.repository }}] PR #${{ steps.check_pr.outputs.pr_number }}: \\\"${{ github.event.workflow_run.pull_requests[0].title }}\\\" was auto-merged by ${{ steps.check_pr.outputs.pr_author }}.\nUpdate type: ${{ steps.metadata.outputs.update-type || 'patch' }}\nMerged at: $TIMESTAMP\nLink: https://github.com/${{ github.repository }}/pull/${{ steps.check_pr.outputs.pr_number }}\"}" \
+                https://mattermost.example.com/api/v4/posts
           
