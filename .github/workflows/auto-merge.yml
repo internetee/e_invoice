@@ -60,7 +60,7 @@ jobs:
       - name: Fetch Dependabot metadata
         if: steps.check_pr.outputs.auto_merge == 'true'
         id: metadata
-        uses: dependabot/fetch-metadata@v1
+        uses: dependabot/fetch-metadata@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.check_pr.outputs.pr_number }}
