@@ -80,12 +80,12 @@ jobs:
           oidc: true
           files: coverage/.resultset.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: qlty-report-${{ matrix.ruby }}
           path: qlty-report.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: coverage-${{ matrix.ruby }}
           path: coverage/
