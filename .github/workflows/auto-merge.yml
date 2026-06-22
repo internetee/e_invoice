@@ -15,7 +15,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success' && github.repository == 'internetee/e_invoice'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Install GitHub CLI
         run: |
